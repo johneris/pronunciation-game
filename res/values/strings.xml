@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">Pronunciation Tutor</string>
+    
+    <string name="imageBackground_desc">Backgound Image</string>
+    
+    <!-- Menu -->
+    <string name="menu_imageViewLogoDesc">Pronunciation Tutor Logo</string>
+    <string name="menu_buttonPlay">PLAY</string>
+    <string name="menu_buttonScores">SCORES</string>
+    <string name="menu_buttonInstructions">HOW TO PLAY</string>
+    
+    <!-- Game Mode -->
+    <string name="gamemode_textViewEnterName">Enter Name:</string>
+    <string name="gamemode_buttonEasy">Easy</string>
+    <string name="gamemode_buttonNormal">Normal</string>
+    <string name="gamemode_buttonHard">Hard</string>
+    
+    <!-- Scores -->
+    <string name="scores_textViewScore">Scores</string>
+    <string name="scores_buttonClear">Clear All</string>
+    <string name="scores_buttonBackToMainMenu">Back To Main Menu</string>
+    
+    <!-- Game -->
+    <string name="game_textViewTriesLeftLbl">Tries Left:</string>
+    <string name="game_textViewTriesLeftVal">3</string>
+    <string name="game_imageViewDesc">Hint Image</string>
+    <string name="game_textViewOption1">Option 1</string>
+    <string name="game_textViewOption2">Option 2</string>
+    <string name="game_buttonHint">Hint</string>
+    <string name="game_buttonSkip">Skip</string>
+    <string name="game_buttonRecord">Record</string>
+    
+    <!-- Result -->
+    <string name="result_textViewResult">Result</string>
+    <string name="result_textViewNameLbl">Name:</string>
+    <string name="result_textViewNameVal">Player Name</string>
+    <string name="result_textViewGameModeLbl">Game Mode:</string>
+    <string name="result_textViewGameModeVal">Easy</string>
+    <string name="result_buttonSave">Save</string>
+    <string name="result_buttonBackToMainMenu">Back To Main Menu</string>
+    <string name="result_textViewTotalScoreLbl">Total Score:</string>
+    <string name="result_textViewTotalScoreVal">0</string>
+    
+    <!-- Iteration Result Dialog -->
+    <string name="iterationresult_textViewWordLbl">Word:</string>
+    <string name="iterationresult_textViewWordVal">Someword</string>
+    <string name="iterationresult_textViewPronunciationVal">P RO NUN CI A TION</string>
+    
+    <!-- Instructions -->
+    <string name="instructions_textViewInstructions">Instructions</string>
+    <string name="instructions_textViewHowTo">\tEnter your name and choose the \n
+        level of difficulty. There are 10 words \n
+        per game. You will be given 3 chances \n
+        to pronunce the right word based on \n
+        the given image. The score depends on \n
+        the trials made before accomplishing \n
+        the task. Click the record button to \n
+        record your voice. Click the skip button \n
+        to move to the next word but remember \n
+        that doing so would make your score 0 \n
+        for that word.
+        </string>
+    
+</resources>
