@@ -24,11 +24,24 @@ import android.widget.ImageView;
 
 public class GameModeActivity extends Activity {
 
+	/* boolean to continue playing music 
+	*/
 	boolean continueMusic = true;
 	
+	/* editText for input user name 
+	*/
 	EditText editTextName;
+
+	/* button for easy mode
+	*/
 	Button buttonEasy;
+
+	/* button for normal mode 
+	*/
 	Button buttonNormal;
+
+	/* button for hard mode 
+	*/
 	Button buttonHard;
 	
 	
@@ -78,13 +91,13 @@ public class GameModeActivity extends Activity {
 			public void onTextChanged(CharSequence name, int arg1, int arg2,
 					int arg3) {
 				if(name.toString().equals("")) {
+					// disable buttons if player name is not entered
 					disableButtons();
 				} else {
+					// enable buttons
 					buttonEasy.setEnabled(true);
 					buttonNormal.setEnabled(true);
 					buttonHard.setEnabled(true);
-//					buttonNormal.setEnabled(false);
-//					buttonHard.setEnabled(false);
 				}
 			}
 		});
@@ -94,7 +107,9 @@ public class GameModeActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				disableButtons();
+				// start GameActivity and finish GameModeActivity
 				Intent intent = new Intent(GameModeActivity.this, GameActivity.class);
+				// send player name and game mode to GameActivity
 				intent.putExtra(Keys.PLAYER_NAME, editTextName.getText().toString());
 				intent.putExtra(Keys.GAME_MODE, Constants.GAMEMODE_EASY);
 				startActivity(intent);
@@ -107,7 +122,9 @@ public class GameModeActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				disableButtons();
+				// start GameActivity and finish GameModeActivity
 				Intent intent = new Intent(GameModeActivity.this, GameActivity.class);
+				// send player name and game mode to GameActivity
 				intent.putExtra(Keys.PLAYER_NAME, editTextName.getText().toString());
 				intent.putExtra(Keys.GAME_MODE, Constants.GAMEMODE_NORMAL);
 				startActivity(intent);
@@ -120,7 +137,9 @@ public class GameModeActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				disableButtons();
+				// start GameActivity and finish GameModeActivity
 				Intent intent = new Intent(GameModeActivity.this, GameActivity.class);
+				// send player name and game mode to GameActivity
 				intent.putExtra(Keys.PLAYER_NAME, editTextName.getText().toString());
 				intent.putExtra(Keys.GAME_MODE, Constants.GAMEMODE_HARD);
 				startActivity(intent);
@@ -128,11 +147,15 @@ public class GameModeActivity extends Activity {
 			}
 		});
 		
+		// disable buttons when started
+		// enable only after player name input
 		disableButtons();
 	}
 	
 	
 	
+	/* disable all buttons 
+	*/
 	private void disableButtons() {
 		buttonEasy.setEnabled(false);
 		buttonNormal.setEnabled(false);
@@ -143,6 +166,7 @@ public class GameModeActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
+		// start MenuActivity and finish GameModeActivity
 		Intent intent = new Intent(GameModeActivity.this, MenuActivity.class);
     	startActivity(intent);
     	finish();

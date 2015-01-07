@@ -42,34 +42,85 @@ import edu.cmu.pocketsphinx.SpeechRecognizer;
 public class GameActivity extends Activity implements
         RecognitionListener {
 	
+	/* boolean to continue playing music 
+	*/
 	boolean continueMusic = true;
 	
+	/* textView for playerName 
+	*/
 	TextView textViewNameVal;
+
+	/* textView for gameMode 
+	*/
 	TextView textViewGameModeVal;
 	
+	/* button to Skip 
+	*/
 	Button buttonSkip;
+
+	/* button to Record 
+	*/
 	Button buttonRecord;
 	
+	/* textView for number of tries left 
+	*/
 	TextView textViewTriesLeftVal;
 	
+	/* image to display
+	*/
 	ImageView imageView;
 	
+	/* textView for option1 
+	*/
 	TextView textViewOption1;
+
+	/* textView for option2 
+	*/
 	TextView textViewOption2;
 	
+	/* recognizer for Speech Recognition 
+	*/
 	SpeechRecognizer recognizer;
+
+	/* Hypothesis recognizerHypothesis 
+	 * of SpeechRecognizer recognizer  
+	*/
 	Hypothesis recognizerHypothesis;
+
+	/* boolean to know is recording 
+	*/
 	boolean isListening;
 	
+	/* game mode
+	*/
 	String gameMode;
+
+	/* player name
+	*/
 	String playerName;
 	
+	/* iteration number
+	*/
 	int iteration;
+
+	/* number of tries left
+	*/
 	int tries;
+
+	/* current word
+	*/
 	String currWord;
 	
+	/* list of random indexes
+	*/
 	ArrayList<Integer> lstRandIndex;
+
+	/* list of scores
+	*/
 	ArrayList<Integer> lstScore;
+
+	/* list of words
+	*/
 	ArrayList<String> lstWord;
 	
 	
@@ -94,8 +145,10 @@ public class GameActivity extends Activity implements
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
         } else {
+        	// get player name
         	playerName = extras.containsKey(Keys.PLAYER_NAME) ? 
         		extras.getString(Keys.PLAYER_NAME) : "";
+        	// get game mode
         	gameMode = extras.containsKey(Keys.GAME_MODE) ? 
         		extras.getString(Keys.GAME_MODE) : "";
         }
@@ -138,6 +191,7 @@ public class GameActivity extends Activity implements
 			@Override
 			public void onClick(View arg0) {
 				buttonRecord.setEnabled(false);
+				// set score to 0 and skip
 				int score = 0;
 				endItem(score);
 				buttonRecord.setEnabled(true);
@@ -149,9 +203,11 @@ public class GameActivity extends Activity implements
 			@Override
 			public void onClick(View arg0) {
 				if(isListening) {
+					// stop recording
 					stopListening();
 					buttonSkip.setEnabled(true);
 				} else {
+					// start recording
 					buttonSkip.setEnabled(false);
 					startListening();
 				}
@@ -170,11 +226,16 @@ public class GameActivity extends Activity implements
         /* Initialize game components */
         
         isListening = false;
+
+        // get recognizer from common.Recognizer.getSpeechRecognizer()
         recognizer = Recognizer.getSpeechRecognizer();
+
         iteration = 0;
         
+        // number of stored words
         int wordsNum = 0;
         
+        // get the number of stored words according to game mode
         if(gameMode.equals(Constants.GAMEMODE_EASY)) {
         	wordsNum = Constants.easyCorrect.size();
         } else if(gameMode.equals(Constants.GAMEMODE_NORMAL)) {
@@ -183,6 +244,7 @@ public class GameActivity extends Activity implements
         	wordsNum = Constants.hardCorrect.size();
         }
         
+        // get common.Constants.itemsPerGame indexes from wordsNum
         lstRandIndex = Randomizer.getRandomIndexes(wordsNum, Constants.itemsPerGame);
         
         lstScore = new ArrayList<>();
@@ -196,29 +258,45 @@ public class GameActivity extends Activity implements
 	
 	private void game() {
 		
-		if(iteration == Constants.itemsPerGame) {
-			
+		/* if iteration is equal to common.Constants.itemsPerGame
+		 * else continue game
+		*/
+
+		if(iteration == Constants.itemsPerGame) {	
+			// start ResultActivity and finish GameActivity
+
 			Intent intent = new Intent(GameActivity.this, ResultActivity.class);
 			
+			// send player name
 			intent.putExtra(Keys.PLAYER_NAME, this.playerName);
+
+			// send game mode
 			intent.putExtra(Keys.GAME_MODE, this.gameMode);
+
+			// send words
 			intent.putExtra(Keys.GAME_WORDS, this.lstWord);
+
+			// send scores
 			intent.putExtra(Keys.GAME_SCORES, this.lstScore);
 			
 			startActivity(intent);
 			finish();
-			
+
 		} else {
 			
+			// get the random index
 			int index = lstRandIndex.get(iteration);
 			
+			// set textView of tries left to 3
 			textViewTriesLeftVal.setText("3");
 			
+			// random boolean to randomize options
 			Random rand = new Random();
 			boolean randBool = rand.nextBoolean();
-			
+
 			if(gameMode.equals(Constants.GAMEMODE_EASY)) {
 				
+				// get and set the image to display
 				try {
 				    InputStream ims = getAssets().open(Constants.easyImagesDir 
 				    		+ Constants.easyImage.get(index));
@@ -226,16 +304,24 @@ public class GameActivity extends Activity implements
 				    imageView.setImageDrawable(d);
 				} catch(IOException ex) {}
 				
+				// set option 1
 				textViewOption1.setText(randBool ? Constants.easyCorrect.get(index) : Constants.easyWrong.get(index));
+
+				// set option 2
 				textViewOption2.setText(randBool ? Constants.easyWrong.get(index) : Constants.easyCorrect.get(index));
 				
+				// set up recognizer
 				setUpRecognizer(Constants.easyCorrect.get(index), Constants.easyThreshold.get(index));
 				
+				// set current word
 				currWord = Constants.easyCorrect.get(index).toLowerCase();
+
+				// add current word to list of words
 				lstWord.add(currWord);
 				
 			} else if(gameMode.equals(Constants.GAMEMODE_NORMAL)) {
 				
+				// get and set the image to display
 				try {
 				    InputStream ims = getAssets().open(Constants.normalImagesDir 
 				    		+ Constants.normalImage.get(index));
@@ -243,16 +329,24 @@ public class GameActivity extends Activity implements
 				    imageView.setImageDrawable(d);
 				} catch(IOException ex) {}
 				
+				// set option 1
 				textViewOption1.setText(randBool ? Constants.normalCorrect.get(index) : Constants.normalWrong.get(index));
+
+				// set option 2
 				textViewOption2.setText(randBool ? Constants.normalWrong.get(index) : Constants.normalCorrect.get(index));
 				
+				// set up recognizer
 				setUpRecognizer(Constants.normalCorrect.get(index), Constants.normalThreshold.get(index));
 				
+				// set current word
 				currWord = Constants.normalCorrect.get(index).toLowerCase();
+
+				// add current word to list of words
 				lstWord.add(currWord);
 				
 			} else if(gameMode.equals(Constants.GAMEMODE_HARD)) {
 				
+				// get and set image to display
 				try {
 				    InputStream ims = getAssets().open(Constants.hardImagesDir 
 				    		+ Constants.hardImage.get(index));
@@ -260,17 +354,26 @@ public class GameActivity extends Activity implements
 				    imageView.setImageDrawable(d);
 				} catch(IOException ex) {}
 				
+				// set option 1
 				textViewOption1.setText(randBool ? Constants.hardCorrect.get(index) : Constants.hardWrong.get(index));
+				
+				// set option 2
 				textViewOption2.setText(randBool ? Constants.hardWrong.get(index) : Constants.hardCorrect.get(index));
 				
+				// set up recognizer
 				setUpRecognizer(Constants.hardCorrect.get(index), Constants.hardThreshold.get(index));
 				
+				// set current word
 				currWord = Constants.hardCorrect.get(index).toLowerCase();
+
+				// add current word to list of words
 				lstWord.add(currWord);
 				
 			}
 			
+			// set tries to 0
 			tries = 0;
+			// enable record button
 			buttonRecord.setEnabled(true);
 		}
 		
@@ -278,77 +381,114 @@ public class GameActivity extends Activity implements
 	
 	
 	
+	/* set up recognizer
+	 * to recognize word 
+	 * with Threshold threshold
+	*/
 	private void setUpRecognizer(String word, float threshold) {	
+		// set up recognizer
 		recognizer = defaultSetup()
 	    		.setAcousticModel(new File(Recognizer.getModelsDir(), "hmm/en-us-semi"))
 	      		.setDictionary(new File(Recognizer.getModelsDir(), "dict/cmu07a.dic"))
 	      		.setKeywordThreshold(threshold)
 	      		.getRecognizer();
 		recognizer.addListener(this);
-			
+		
+		// add keyphrase search for word	
 		recognizer.addKeyphraseSearch(Constants.KWS_SEARCH, word.toLowerCase());
 	}
 	
 	
 	
+	/* start recording
+	*/
 	private void startListening() {
 		isListening = true;
 		recognizerHypothesis = null;
 		
+		// pause music
 		MusicManager.pause();
 		
+		// start listening
 		recognizer.startListening(Constants.KWS_SEARCH);
-		
+
 		buttonRecord.setText("Stop");
 	}
 	
 	
 	
+	/* stop recording
+	*/
 	private void stopListening() {
 		int score = 0;
 		isListening = false;
 		
+		// stop recognizer
 		recognizer.stop();
 		
+		// get recognized word
 		String strRecognized = recognizerHypothesis != null 
 				? recognizerHypothesis.getHypstr() : "";
-				
+		
+		// if recognizer did not detect word
+		// because of wrong pronunciation
 		if(recognizerHypothesis == null) {
 			Toast.makeText(getApplicationContext(),
 					"Ooops! Wrong Pronunciation", Toast.LENGTH_SHORT)
 					.show();
 		}
 		
+		// increment number of tries
 		tries++;
+		// set tries left textView
 		textViewTriesLeftVal.setText("" + (3-tries));
 		
+		// if recognized
 		if(strRecognized.equals(currWord) || strRecognized.contains(currWord)) {
+			// compute score
 			score = 3-(tries-1);
+			// end item with score
 			endItem(score);
 		} else if(tries == 3) {
+			// set score to 0
 			score = 0;
+			// end item with score
 			endItem(score);
 		}
 		
 		buttonRecord.setText("Record");
+
+		// start playing music
 		MusicManager.start(this, MusicManager.MUSIC_ALL);
 	}
 	
 	
 	
+	/* end an item
+	*/
 	private void endItem(int score) {
+		// add score to list of scores
 		lstScore.add(score);
+		// show score
 		showItemResultDialog(lstRandIndex.get(iteration), score);
+		// add iteration
 		iteration++;
+		// continue game
 		game();
 	}
 	
 	
 	
+	/* show alert dialog
+	 * with the word and score
+	*/
 	@SuppressLint("NewApi")
 	private void showItemResultDialog(int index, int score) {
 		String word="", pronunciation="";
 		
+		// get the word and pronunciation
+		// according to game mode
+
 		if(gameMode.equals(Constants.GAMEMODE_EASY)) {
         	word = Constants.easyCorrect.get(index);
         	pronunciation = Constants.easyPhoneme.get(index);
@@ -360,37 +500,50 @@ public class GameActivity extends Activity implements
         	pronunciation = Constants.hardPhoneme.get(index);
         }
 		
+		// build an alert dialog
 		AlertDialog.Builder scoreDialog = new AlertDialog.Builder(this);
 	    LayoutInflater inflater = this.getLayoutInflater();
 	    
 	    View dialogView = inflater.inflate(R.layout.iteration_result_layout, null);
 	    scoreDialog.setView(dialogView);
 	    
+	    // word
 	    TextView textViewWordVal = (TextView) dialogView.findViewById(R.id.iterationresult_textViewWordVal);
 		textViewWordVal.setText(word);
 		
+		// pronunciation
 		TextView textViewPronunciationVal = (TextView) dialogView.findViewById(R.id.iterationresult_textViewPronunciationVal);
 		textViewPronunciationVal.setText(pronunciation);
 		
+		// rating bar
 		RatingBar ratingBar = (RatingBar) dialogView.findViewById(R.id.iterationresult_ratingBar);
 		ratingBar.setRating(score);
 		ratingBar.setEnabled(false);
 		
+		// show alert dialog
 	    AlertDialog myAlert = scoreDialog.create();
 	    myAlert.show();
 	}
 	
 	
 	
+	/* get partial results from recognizer
+	*/
     @Override
     public void onPartialResult(Hypothesis hypothesis) {
+    	// if hypothesis is not null
+    	// set recognizerHypothesis to hypothesis
     	if(hypothesis != null) {
     		recognizerHypothesis = hypothesis;
     	}
     }
 
+    /* get final result from recognizer
+	*/
     @Override
     public void onResult(Hypothesis hypothesis) {
+    	// if hypothesis is not null
+    	// set recognizerHypothesis to hypothesis
     	if(hypothesis != null) {
     		recognizerHypothesis = hypothesis;
     	}
@@ -414,7 +567,7 @@ public class GameActivity extends Activity implements
     
     @Override
     public void onBackPressed() {
-    	// promt user lost data
+    	// start MenuActivity and finish GameActivity
     	Intent intent = new Intent(GameActivity.this, MenuActivity.class);
     	startActivity(intent);
     	finish();

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class Constants {
 	
+	/* constant values used for transferring 
+	 * data between activities using keys
+	*/
 	public static final String KEYWORD_SEARCH = "keyword";
 	public static final String PHONE_SEARCH = "phones";
 	public static final String KWS_SEARCH = "keyphrase";
@@ -12,8 +15,14 @@ public class Constants {
 	public static final String GAMEMODE_NORMAL = "Normal";
 	public static final String GAMEMODE_HARD = "Hard";
 	
+	/* number of words to pronunce
+	 * per game instance
+	*/
 	public static final int itemsPerGame = 10;
-	
+
+	/* list of word, threshold, image, 
+	 * and phoneme per game mode
+	*/
 	public static ArrayList<String> easyCorrect;
 	public static ArrayList<String> easyWrong;
 	public static ArrayList<Float> easyThreshold;
@@ -32,10 +41,15 @@ public class Constants {
 	public static ArrayList<String> hardImage;
 	public static ArrayList<String> hardPhoneme;
 	
+	/* images directory
+	 * per game mode
+	*/
 	public static final String easyImagesDir = "game_images/easy/";
 	public static final String normalImagesDir = "game_images/normal/";
 	public static final String hardImagesDir = "game_images/hard/";
 	
+	/* store scores
+	*/
 	public static final String userScoreFile = "userScore.txt";
 	public static ArrayList<UserProfile> lstUserProfile;
 	

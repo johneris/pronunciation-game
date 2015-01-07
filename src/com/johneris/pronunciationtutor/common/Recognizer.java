@@ -6,8 +6,12 @@ import edu.cmu.pocketsphinx.SpeechRecognizer;
 
 public class Recognizer {
 	
+	/* models directory for speech recognition
+	*/
 	public static File modelsDir;
 	
+	/* recognizer
+	*/
 	public static SpeechRecognizer recognizer;
 	
 	private Recognizer() {

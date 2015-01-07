@@ -19,10 +19,20 @@ import android.widget.ImageView;
 
 public class MenuActivity extends Activity {
 
+	/* boolean to continue playing music
+	*/
 	boolean continueMusic = true;
 	
+	/* button to Play
+	*/
 	Button buttonPlay;
+
+	/* button to view Scores
+	*/
 	Button buttonScores;
+
+	/* button to view instructions
+	*/
 	Button buttonInstructions;
 	
 	
@@ -64,6 +74,7 @@ public class MenuActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				disableButtons();
+				// start GameModeActivity and finish MenuActivity
 				Intent intent = new Intent(MenuActivity.this, GameModeActivity.class);
 				startActivity(intent);
 				finish();
@@ -75,6 +86,7 @@ public class MenuActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				disableButtons();
+				// start ScoresActivity and finish MenuActivity
 				Intent intent = new Intent(MenuActivity.this, ScoresActivity.class);
 				startActivity(intent);
 				finish();
@@ -86,6 +98,7 @@ public class MenuActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				disableButtons();
+				// start InstructionsActivity and finish MenuActivity
 				Intent intent = new Intent(MenuActivity.this, InstructionsActivity.class);
 				startActivity(intent);
 				finish();
@@ -95,7 +108,9 @@ public class MenuActivity extends Activity {
 	}
 	
 	
-	
+
+	/* disable all buttons
+	*/
 	private void disableButtons() {
 		buttonPlay.setEnabled(false);
 		buttonScores.setEnabled(false);

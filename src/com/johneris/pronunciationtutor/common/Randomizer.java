@@ -5,6 +5,10 @@ import java.util.Random;
 
 public class Randomizer {
 
+	/* get randNumCt random indexes
+	 * from array with array size arraySize
+	 * used for getting random words per game
+	*/
 	public static ArrayList<Integer> getRandomIndexes(int arraySize, int randNumCt) {
 		ArrayList<Integer> lstIndex = new ArrayList<>();
 		Random randomizer = new Random();

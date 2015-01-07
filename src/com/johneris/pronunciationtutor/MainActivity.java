@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle state) {
         super.onCreate(state);
         
-        /* Initialize speech recognizer */
+        // Initialize speech recognizer
         new AsyncTask<Void, Void, Exception>() {
             @Override
             protected Exception doInBackground(Void... params) {
@@ -38,7 +38,10 @@ public class MainActivity extends Activity {
             protected void onPostExecute(Exception result) {
                 if (result != null) {
                 } else {
+                    // set common.Recognizer.recognizer to 
+                    // the initialized SpeechRecognizer recognizer 
                 	Recognizer.setSpeechRecognizer(recognizer);
+                    // start MenuActivity and finish MainActivity
                 	Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                 	startActivity(intent);
                 	MainActivity.this.finish();

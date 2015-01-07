@@ -33,11 +33,20 @@ import android.widget.Toast;
 
 public class ScoresActivity extends Activity {
 
+	/* boolean to continue playing music
+	*/
 	boolean continueMusic = true;
 	
+	/* table for scores
+	*/
 	TableLayout tableLayout;
 	
+	/* button to clear all saved scores
+	*/
 	Button buttonClear;
+
+	/* button to go back to Main Menu
+	*/
 	Button buttonBackToMainMenu;
 	
 	
@@ -80,11 +89,15 @@ public class ScoresActivity extends Activity {
         buttonClear.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				// disable buttons
 				buttonClear.setEnabled(false);
 				buttonBackToMainMenu.setEnabled(false);
+				// clear all saved scores
 				Constants.lstUserProfile.clear();
 				saveUserProfiles();
+				// reload table
 				loadTable();
+				// enable buttons
 				buttonClear.setEnabled(true);
 				buttonBackToMainMenu.setEnabled(true);
 			}
@@ -94,6 +107,7 @@ public class ScoresActivity extends Activity {
         buttonBackToMainMenu.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				// start MenuActivity and finish ScoresActivity
 				Intent intent = new Intent(ScoresActivity.this, MenuActivity.class);
 				startActivity(intent);
 				finish();
@@ -105,10 +119,14 @@ public class ScoresActivity extends Activity {
 	
 	
 	
+	/* load table of scores
+	*/
 	private void loadTable() {
 		
+		// load user profiles
 		loadUserProfiles();
 		
+		// remove all scores in table
 		tableLayout.removeAllViews();
 		
 		int textViewWidth = 90;
@@ -116,6 +134,9 @@ public class ScoresActivity extends Activity {
 		int buttonDeleteWidth = 50;
 		int buttonDeleteHeight = 50;
 		
+		// top labels :   Name   Easy   Normal   Hard
+
+		// layout that will contain the textViews
 		LinearLayout linearLayout = new LinearLayout(getApplicationContext());
 		
 		TextView textViewNameLbl = new TextView(getApplicationContext());
@@ -134,25 +155,31 @@ public class ScoresActivity extends Activity {
     	textViewHardLbl.setText("Hard");
     	textViewHardLbl.setWidth(textViewWidth);
     	
+    	// space for delete button
     	TextView dummy = new TextView(getApplicationContext());
     	dummy.setText("");
     	dummy.setWidth(buttonDeleteWidth);
     	
+    	// add views to layout
     	linearLayout.addView(textViewNameLbl);
     	linearLayout.addView(textViewEasyLbl);
     	linearLayout.addView(textViewNormalLbl);
     	linearLayout.addView(textViewHardLbl);
     	linearLayout.addView(dummy);
-		
+
+    	// add layout to table row
 		TableRow tableRowLbl = new TableRow(getApplicationContext());
 		tableRowLbl.addView(linearLayout);
 		tableRowLbl.setGravity(Gravity.CENTER);
 		
+		// add table row to table
 		tableLayout.addView(tableRowLbl);
 
+		// fill table with user profiles
 		for(int i = 0; i < Constants.lstUserProfile.size(); i++) {
 			final UserProfile userProfile = Constants.lstUserProfile.get(i);
 			
+			// layout that will contain user profile
 			LinearLayout linearLayoutItem = new LinearLayout(getApplicationContext());
 			
         	TextView textViewName = new TextView(getApplicationContext());
@@ -171,6 +198,7 @@ public class ScoresActivity extends Activity {
         	textViewHard.setText("" + userProfile.getHardScore());
         	textViewHard.setWidth(textViewWidth);
         	
+        	// delete profile button
         	Button buttonDelete = new Button(getApplicationContext());
         	buttonDelete.setLayoutParams(new LinearLayout.LayoutParams(buttonDeleteWidth, buttonDeleteHeight));
         	buttonDelete.setPadding(2, 2, 2, 2);
@@ -178,28 +206,37 @@ public class ScoresActivity extends Activity {
         	buttonDelete.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
+					// delete profile
 					Constants.lstUserProfile.remove(userProfile);
+					// save
 					saveUserProfiles();
+					// reload table
 					loadTable();
 				}
         	});
         	
+        	// add to layout
         	linearLayoutItem.addView(textViewName);
         	linearLayoutItem.addView(textViewEasy);
         	linearLayoutItem.addView(textViewNormal);
         	linearLayoutItem.addView(textViewHard);
         	linearLayoutItem.addView(buttonDelete);
 			
+			// add layout to table row
 			TableRow tableRow = new TableRow(getApplicationContext());
 			tableRow.addView(linearLayoutItem);
 			tableRow.setGravity(Gravity.CENTER);
 			
+			// add table row to table
 			tableLayout.addView(tableRow);
         }
 	}
 	
 	
-	
+
+	/* load user profiles from
+	 * file common.Constants.userScoreFile
+	*/
 	private void loadUserProfiles() {
 		
 		if(!Constants.lstUserProfile.isEmpty()) return;
@@ -217,6 +254,7 @@ public class ScoresActivity extends Activity {
 							Integer.parseInt(user[1]),	// easy score
 							Integer.parseInt(user[2]),	// normal score
 							Integer.parseInt(user[3]));	// hard score
+					// add to common.Constants.lstUserProfile
 					Constants.lstUserProfile.add(userProfile);
 				}
 				in.close();
@@ -229,11 +267,14 @@ public class ScoresActivity extends Activity {
 	
 	
 	
+	/* save user profiles to file
+	*/
 	private void saveUserProfiles() {
 		
 		try {
 			OutputStreamWriter out = new OutputStreamWriter(
 					openFileOutput(Constants.userScoreFile, 0));
+			// save all data from common.Constants.lstUserProfile
 			for(UserProfile userProfile : Constants.lstUserProfile) {
 				out.write(userProfile.getUserName() + " " +
 							userProfile.getEasyScore() + " " +
@@ -254,6 +295,7 @@ public class ScoresActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
+		// start MenuActivity and finish ScoresActivity
 		Intent intent = new Intent(ScoresActivity.this, MenuActivity.class);
     	startActivity(intent);
     	finish();

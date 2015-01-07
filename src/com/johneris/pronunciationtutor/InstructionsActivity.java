@@ -16,6 +16,8 @@ import android.widget.ImageView;
 @SuppressLint("NewApi")
 public class InstructionsActivity extends Activity {
 
+	/* boolean to continue playing music 
+	*/
 	boolean continueMusic = true;
 	
 	
@@ -53,6 +55,7 @@ public class InstructionsActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
+		// start MenuActivity and finish InstructionsActivity
 		Intent intent = new Intent(InstructionsActivity.this, MenuActivity.class);
     	startActivity(intent);
     	finish();

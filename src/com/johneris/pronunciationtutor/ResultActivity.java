@@ -34,21 +34,48 @@ import android.widget.Toast;
 
 public class ResultActivity extends Activity {
 
+	/* boolean to continue playing music
+	*/
 	boolean continueMusic = true;
-	
+
+	/* textView for playerName
+	*/
 	TextView textViewNameVal;
+
+	/* textView for gameMode
+	*/
 	TextView textViewGameModeVal;
 	
+	/* table to display result
+	*/
 	TableLayout tableLayout;
 	
+	/* textView for total score
+	*/
 	TextView textViewTotalScoreVal;
 	
+	/* button to Save score
+	*/
 	Button buttonSave;
+
+	/* button to go back to Main Menu
+	*/
 	Button buttonBackToMainMenu;
 	
+	/* player name
+	*/
 	String playerName;
+	
+	/* game mode
+	*/
 	String gameMode;
+	
+	/* list of words
+	*/
 	ArrayList<String> lstWord;
+
+	/* list of scores
+	*/
 	ArrayList<Integer> lstScore;
 	
 	
@@ -89,12 +116,19 @@ public class ResultActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
         } else {
+        	// get the player name
         	playerName = extras.containsKey(Keys.PLAYER_NAME) ? 
         			extras.getString(Keys.PLAYER_NAME) : "";
+        	
+        	// get the game mode
         	gameMode = extras.containsKey(Keys.GAME_MODE) ? 
         			extras.getString(Keys.GAME_MODE) : "";
+        	
+        	// get the list of words
         	lstWord = (ArrayList<String>) (extras.containsKey(Keys.GAME_WORDS) ?
         			extras.getStringArrayList(Keys.GAME_WORDS) : new ArrayList<>());
+
+        	// get the list of scores
         	lstScore = (ArrayList<Integer>) (extras.containsKey(Keys.GAME_SCORES) ?
         			extras.getStringArrayList(Keys.GAME_SCORES) : new ArrayList<>());
         }
@@ -115,6 +149,7 @@ public class ResultActivity extends Activity {
 		buttonSave.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				// save user data
 				saveUserData();
 			}
 		});
@@ -123,6 +158,7 @@ public class ResultActivity extends Activity {
 		buttonBackToMainMenu.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				// start MenuActivity and finish ResultActivity
 				Intent intent = new Intent(ResultActivity.this, MenuActivity.class);
 				startActivity(intent);
 				finish();
@@ -131,35 +167,47 @@ public class ResultActivity extends Activity {
 		
 		tableLayout = (TableLayout) findViewById(R.id.scores_tableLayout);
 		
+		// fill table with results
 		for(int i = 0; i < lstWord.size(); i++) {
+			// word
 			TextView textViewWord = new TextView(getApplicationContext());
 			textViewWord.setText(lstWord.get(i));
 			
+			// score
 			RatingBar ratingBarScore = new RatingBar(getApplicationContext());
 			ratingBarScore.setEnabled(false);
 			ratingBarScore.setNumStars(3);
 			ratingBarScore.setRating(lstScore.get(i));
 			
+			// create a table row that contains the word and score
 			TableRow tableRow = new TableRow(getApplicationContext());
 			tableRow.addView(textViewWord);
 			tableRow.addView(ratingBarScore);
 			tableRow.setGravity(Gravity.CENTER);
 			
+			// add the row to table
 			tableLayout.addView(tableRow);
 		}
 	}
 	
 	
 	
+	/* save user data from 
+	 * the results of the game
+	*/
 	private void saveUserData() {
 		
+		// boolean to indicate if user exists
 		boolean isSaved = false;
 		
+		// load user profiles
 		loadUserProfiles();
 		
-		// find user if exist
+		// find user if exists
 		for(UserProfile userProfile : Constants.lstUserProfile) {
+			// if userName exists
 			if(userProfile.getUserName().equals(playerName)) {
+				// set score according to game mode
 				if(gameMode.equals(Constants.GAMEMODE_EASY)) {
 					userProfile.setEasyScore(totalScore());
 				} else if(gameMode.equals(Constants.GAMEMODE_NORMAL)) {
@@ -167,32 +215,43 @@ public class ResultActivity extends Activity {
 				} else if(gameMode.equals(Constants.GAMEMODE_HARD)) {
 					userProfile.setHardScore(totalScore());
 				}
+				// set isSaved to true
 				isSaved = true;
 			}
 		}
 		
 		// well this is a new user
 		if(!isSaved) {
+			// create a new user
 			UserProfile user = new UserProfile();
+			// set user name
 			user.setUserName(playerName);
+			// set easy score
 			user.setEasyScore(gameMode.equals(Constants.GAMEMODE_EASY) ? 
 					totalScore() : 0);
+			// set normal score
 			user.setNormalScore(gameMode.equals(Constants.GAMEMODE_NORMAL) ? 
 					totalScore() : 0);
+			// set hard score
 			user.setHardScore(gameMode.equals(Constants.GAMEMODE_HARD) ? 
 					totalScore() : 0);
+			// add to the list of user profiles
 			Constants.lstUserProfile.add(user);
 		}
 		
+		// save user profiles
 		saveUserProfiles();
 	}
 	
 	
 	
+	/* save user profiles to file
+	*/
 	private void saveUserProfiles() {
 		try {
 			OutputStreamWriter out = new OutputStreamWriter(
 					openFileOutput(Constants.userScoreFile, 0));
+			// save all data from common.Constants.lstUserProfile
 			for(UserProfile userProfile : Constants.lstUserProfile) {
 				out.write(userProfile.getUserName() + " " +
 							userProfile.getEasyScore() + " " +
@@ -211,6 +270,9 @@ public class ResultActivity extends Activity {
 	
 	
 	
+	/* load user profiles from
+	 * file common.Constants.userScoreFile
+	*/
 	private void loadUserProfiles() {
 		if(!Constants.lstUserProfile.isEmpty()) return;
 		Constants.lstUserProfile = new ArrayList<>();
@@ -226,6 +288,7 @@ public class ResultActivity extends Activity {
 							Integer.parseInt(user[1]),	// easy score
 							Integer.parseInt(user[2]),	// normal score
 							Integer.parseInt(user[3]));	// hard score
+					// add to common.Constants.lstUserProfile
 					Constants.lstUserProfile.add(userProfile);
 				}
 				in.close();
@@ -238,6 +301,8 @@ public class ResultActivity extends Activity {
 	
 	
 	
+	/* return the total score
+	*/
 	public int totalScore() {
 		int total = 0;
 		for(int s : lstScore) {
@@ -250,6 +315,7 @@ public class ResultActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
+		// start MenuActivity and finish ResultActivity
 		Intent intent = new Intent(ResultActivity.this, MenuActivity.class);
     	startActivity(intent);
     	finish();
