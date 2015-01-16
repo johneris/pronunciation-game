@@ -15,18 +15,24 @@ import edu.cmu.pocketsphinx.SpeechRecognizer;
 public class MainActivity extends Activity {
 	
     private SpeechRecognizer recognizer;
-
+    
+    
+    
     @Override
     public void onCreate(Bundle state) {
-        super.onCreate(state);
+        
+    	super.onCreate(state);
         
         // Initialize speech recognizer
         new AsyncTask<Void, Void, Exception>() {
+        	
             @Override
             protected Exception doInBackground(Void... params) {
                 try {
+                	// sync assets
                     Assets assets = new Assets(MainActivity.this);
                     File assetDir = assets.syncAssets();
+                    // setup recognizer
                     setupRecognizer(assetDir);
                 } catch (IOException e) {
                     return e;
@@ -41,6 +47,7 @@ public class MainActivity extends Activity {
                     // set common.Recognizer.recognizer to 
                     // the initialized SpeechRecognizer recognizer 
                 	Recognizer.setSpeechRecognizer(recognizer);
+                	
                     // start MenuActivity and finish MainActivity
                 	Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                 	startActivity(intent);
@@ -49,12 +56,16 @@ public class MainActivity extends Activity {
             }
         }.execute();
     }
-
+    
+    
+    
     private void setupRecognizer(File assetsDir) {
         File modelsDir = new File(assetsDir, "models");
         Recognizer.setModelsDir(modelsDir);
     }
     
+	
+	
     @Override
     public void onBackPressed() {
     }

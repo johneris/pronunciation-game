@@ -89,14 +89,14 @@
 	        </LinearLayout>
 
 	        <FrameLayout
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
+	            android:layout_width="@dimen/game_imageViewWidth"
+	            android:layout_height="@dimen/game_imageViewHeight"
 	            android:background="@drawable/result_background" >
 
 	            <ImageView
 	                android:id="@+id/game_imageView"
-	                android:layout_width="@dimen/game_imageViewWidth"
-	                android:layout_height="@dimen/game_imageViewHeight"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
 	                android:contentDescription="@string/game_imageViewDesc"
 	                android:padding="@dimen/game_imageViewPadding"
 	                android:scaleType="fitXY" />

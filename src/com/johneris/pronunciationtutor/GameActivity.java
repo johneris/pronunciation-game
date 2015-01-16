@@ -18,10 +18,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -30,9 +32,9 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-//import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.cmu.pocketsphinx.Hypothesis;
@@ -42,85 +44,105 @@ import edu.cmu.pocketsphinx.SpeechRecognizer;
 public class GameActivity extends Activity implements
         RecognitionListener {
 	
-	/* boolean to continue playing music 
-	*/
+	/**
+	 * boolean to continue playing music 
+	 */
 	boolean continueMusic = true;
 	
-	/* textView for playerName 
-	*/
+	/**
+	 * textView for playerName 
+	 */
 	TextView textViewNameVal;
 
-	/* textView for gameMode 
-	*/
+	/**
+	 * textView for gameMode 
+	 */
 	TextView textViewGameModeVal;
 	
-	/* button to Skip 
-	*/
+	/**
+	 * button to Skip 
+	 */
 	Button buttonSkip;
 
-	/* button to Record 
-	*/
+	/**
+	 * button to Record 
+	 */
 	Button buttonRecord;
 	
-	/* textView for number of tries left 
-	*/
+	/**
+	 * textView for number of tries left 
+	 */
 	TextView textViewTriesLeftVal;
 	
-	/* image to display
-	*/
+	/**
+	 * image to display
+	 */
 	ImageView imageView;
 	
-	/* textView for option1 
-	*/
+	/**
+	 * textView for option1 
+	 */
 	TextView textViewOption1;
 
-	/* textView for option2 
-	*/
+	/**
+	 * textView for option2 
+	 */
 	TextView textViewOption2;
 	
-	/* recognizer for Speech Recognition 
-	*/
+	/**
+	 * recognizer for Speech Recognition 
+	 */
 	SpeechRecognizer recognizer;
 
-	/* Hypothesis recognizerHypothesis 
+	/**
+	 * Hypothesis recognizerHypothesis 
 	 * of SpeechRecognizer recognizer  
-	*/
+	 */
 	Hypothesis recognizerHypothesis;
 
-	/* boolean to know is recording 
-	*/
+	/**
+	 * boolean to know is recording 
+	 */
 	boolean isListening;
 	
-	/* game mode
-	*/
+	/**
+	 * game mode
+	 */
 	String gameMode;
 
-	/* player name
-	*/
+	/**
+	 * player name
+	 */
 	String playerName;
 	
-	/* iteration number
-	*/
+	/**
+	 * iteration number
+	 */
 	int iteration;
 
-	/* number of tries left
-	*/
+	/**
+	 * number of tries left
+	 */
 	int tries;
 
-	/* current word
-	*/
+	/**
+	 * current word
+	 */
 	String currWord;
 	
-	/* list of random indexes
-	*/
+	/**
+	 * list of random indexes
+	 */
 	ArrayList<Integer> lstRandIndex;
 
-	/* list of scores
-	*/
+	/**
+	 * list of scores
+	 */
 	ArrayList<Integer> lstScore;
 
-	/* list of words
-	*/
+	/**
+	 * list of words
+	 */
 	ArrayList<String> lstWord;
 	
 	
@@ -381,10 +403,11 @@ public class GameActivity extends Activity implements
 	
 	
 	
-	/* set up recognizer
+	/**
+	 * set up recognizer
 	 * to recognize word 
 	 * with Threshold threshold
-	*/
+	 */
 	private void setUpRecognizer(String word, float threshold) {	
 		// set up recognizer
 		recognizer = defaultSetup()
@@ -400,8 +423,9 @@ public class GameActivity extends Activity implements
 	
 	
 	
-	/* start recording
-	*/
+	/**
+	 * start recording
+	 */
 	private void startListening() {
 		isListening = true;
 		recognizerHypothesis = null;
@@ -417,8 +441,9 @@ public class GameActivity extends Activity implements
 	
 	
 	
-	/* stop recording
-	*/
+	/**
+	 * stop recording
+	 */
 	private void stopListening() {
 		int score = 0;
 		isListening = false;
@@ -464,8 +489,9 @@ public class GameActivity extends Activity implements
 	
 	
 	
-	/* end an item
-	*/
+	/**
+	 * end an item
+	 */
 	private void endItem(int score) {
 		// add score to list of scores
 		lstScore.add(score);
@@ -479,12 +505,14 @@ public class GameActivity extends Activity implements
 	
 	
 	
-	/* show alert dialog
+	/**
+	 * show alert dialog
 	 * with the word and score
-	*/
+	 */
 	@SuppressLint("NewApi")
 	private void showItemResultDialog(int index, int score) {
-		String word="", pronunciation="";
+		String word="";
+		String pronunciation="";
 		
 		// get the word and pronunciation
 		// according to game mode
@@ -520,6 +548,40 @@ public class GameActivity extends Activity implements
 		ratingBar.setRating(score);
 		ratingBar.setEnabled(false);
 		
+		final String fWord = word;
+		ImageButton buttonPronounce = (ImageButton) dialogView.findViewById(R.id.iterationresult_buttonPronounce);
+		buttonPronounce.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				try {
+					MusicManager.pause();
+					
+					String strWavFile = "pronounce/";
+					
+					if(gameMode.equals(Constants.GAMEMODE_EASY)) {
+						strWavFile += "easy/";
+			        } else if(gameMode.equals(Constants.GAMEMODE_NORMAL)) {
+			        	strWavFile += "normal/";
+			        } else if(gameMode.equals(Constants.GAMEMODE_HARD)) {
+			        	strWavFile += "hard/";
+			        }
+					
+					strWavFile += fWord.toUpperCase() + ".wav";
+					
+					AssetFileDescriptor afd = getAssets().openFd(strWavFile);
+				    MediaPlayer player = new MediaPlayer();
+				    player.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+				    player.prepare();
+				    player.start();		
+				    
+				    while(player.isPlaying());
+				    
+				    MusicManager.start(GameActivity.this, MusicManager.MUSIC_ALL);
+				} catch(Exception e) {
+			    }
+			}
+		});
+		
 		// show alert dialog
 	    AlertDialog myAlert = scoreDialog.create();
 	    myAlert.show();
@@ -527,8 +589,9 @@ public class GameActivity extends Activity implements
 	
 	
 	
-	/* get partial results from recognizer
-	*/
+	/**
+	 * get partial results from recognizer
+	 */
     @Override
     public void onPartialResult(Hypothesis hypothesis) {
     	// if hypothesis is not null
@@ -538,8 +601,9 @@ public class GameActivity extends Activity implements
     	}
     }
 
-    /* get final result from recognizer
-	*/
+    /**
+     * get final result from recognizer
+	 */
     @Override
     public void onResult(Hypothesis hypothesis) {
     	// if hypothesis is not null

@@ -35,5 +35,7 @@
     
     <!-- Instructions -->
     <dimen name="instructions_textViewInstructionsPadding">20dp</dimen>
+    <dimen name="instructions_imageViewWidth">200dp</dimen>
+    <dimen name="instructions_imageViewHeight">200dp</dimen>
     
 </resources>

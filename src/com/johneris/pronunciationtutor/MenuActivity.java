@@ -19,20 +19,24 @@ import android.widget.ImageView;
 
 public class MenuActivity extends Activity {
 
-	/* boolean to continue playing music
-	*/
+	/**
+	 * boolean to continue playing music
+	 */
 	boolean continueMusic = true;
 	
-	/* button to Play
-	*/
+	/**
+	 * button to Play
+	 */
 	Button buttonPlay;
 
-	/* button to view Scores
-	*/
+	/**
+	 * button to view Scores
+	 */
 	Button buttonScores;
 
-	/* button to view instructions
-	*/
+	/**
+	 * button to view instructions
+	 */
 	Button buttonInstructions;
 	
 	
@@ -109,8 +113,9 @@ public class MenuActivity extends Activity {
 	
 	
 
-	/* disable all buttons
-	*/
+	/**
+	 * disable all buttons
+	 */
 	private void disableButtons() {
 		buttonPlay.setEnabled(false);
 		buttonScores.setEnabled(false);

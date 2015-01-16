@@ -33,16 +33,29 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/iteration_result_viewsPadding" >
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
 
         <TextView
             android:id="@+id/iterationresult_textViewPronunciationVal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/iterationresult_textViewPronunciationVal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/iteration_result_viewsPadding" >
+
+        <ImageButton
+            android:id="@+id/iterationresult_buttonPronounce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:cropToPadding="false"
+            android:src="@drawable/pronounce" />
 
     </LinearLayout>
 

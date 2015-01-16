@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public class Constants {
 	
-	/* constant values used for transferring 
+	/**
+	 * constant values used for transferring 
 	 * data between activities using keys
-	*/
+	 */
 	public static final String KEYWORD_SEARCH = "keyword";
 	public static final String PHONE_SEARCH = "phones";
 	public static final String KWS_SEARCH = "keyphrase";
@@ -15,14 +16,16 @@ public class Constants {
 	public static final String GAMEMODE_NORMAL = "Normal";
 	public static final String GAMEMODE_HARD = "Hard";
 	
-	/* number of words to pronunce
+	/**
+	 * number of words to pronounce
 	 * per game instance
-	*/
+	 */
 	public static final int itemsPerGame = 10;
 
-	/* list of word, threshold, image, 
+	/**
+	 * list of word, threshold, image, 
 	 * and phoneme per game mode
-	*/
+	 */
 	public static ArrayList<String> easyCorrect;
 	public static ArrayList<String> easyWrong;
 	public static ArrayList<Float> easyThreshold;
@@ -41,15 +44,17 @@ public class Constants {
 	public static ArrayList<String> hardImage;
 	public static ArrayList<String> hardPhoneme;
 	
-	/* images directory
+	/**
+	 * images directory
 	 * per game mode
-	*/
+	 */
 	public static final String easyImagesDir = "game_images/easy/";
 	public static final String normalImagesDir = "game_images/normal/";
 	public static final String hardImagesDir = "game_images/hard/";
 	
-	/* store scores
-	*/
+	/**
+	 * store scores
+	 */
 	public static final String userScoreFile = "userScore.txt";
 	public static ArrayList<UserProfile> lstUserProfile;
 	
@@ -64,7 +69,7 @@ public class Constants {
 		easyPhoneme = new ArrayList<>();
 		
 		easyCorrect.add("BLACK");				easyWrong.add("BLOCK");		
-		easyThreshold.add(1e-25f);				easyImage.add("BLACK - block.jpg");
+		easyThreshold.add(1e-20f);				easyImage.add("BLACK - block.jpg");
 		easyPhoneme.add("B L AE K");
 		
 		easyCorrect.add("BLOND");				easyWrong.add("BLAND");		
@@ -198,9 +203,9 @@ public class Constants {
 		normalThreshold.add(1e-20f);			normalImage.add("AUTUMN_autunm_SilentN.jpg");
 		normalPhoneme.add("AO T AH M");
 		
-//		normalCorrect.add("BAGUETTE"); 			normalWrong.add("BAGGUTTE");
-//		normalThreshold.add(1e-5f);				normalImage.add("BAGUETTE_baggutte_SilentU.jpg");
-//		normalPhoneme.add("");
+		normalCorrect.add("BAGUETTE"); 			normalWrong.add("BAGGUTTE");
+		normalThreshold.add(1e-20f);			normalImage.add("BAGUETTE_baggutte_SilentU.jpg");
+		normalPhoneme.add("B AE G EH T");
 		
 		normalCorrect.add("CASTLE"); 			normalWrong.add("CASTEL");
 		normalThreshold.add(1e-15f);			normalImage.add("CASTLE_castel_SilentT.jpg");
@@ -258,9 +263,9 @@ public class Constants {
 		normalThreshold.add(1e-5f);				normalImage.add("LAMB_lamv_SilentB.jpg");
 		normalPhoneme.add("L AE M");
 		
-//		normalCorrect.add("LEPRECHAUN"); 		normalWrong.add("LEPRECHAIN");
-//		normalThreshold.add(1e-10f);			normalImage.add("LEPRECHAUN_leprechain_SilentH.jpg");
-//		normalPhoneme.add("");
+		normalCorrect.add("LEPRECHAUN"); 		normalWrong.add("LEPRECHAIN");
+		normalThreshold.add(1e-20f);			normalImage.add("LEPRECHAUN_leprechain_SilentH.jpg");
+		normalPhoneme.add("L EH P R IH K AA N");
 		
 		normalCorrect.add("LOCH"); 				normalWrong.add("LOHC");
 		normalThreshold.add(1e-10f);			normalImage.add("LOCH_lohc_SilentH.jpg");
@@ -345,21 +350,21 @@ public class Constants {
 		hardThreshold.add(1e-30f);				hardImage.add("EAVESDROP - eevesdrop.jpg");
 		hardPhoneme.add("IY V Z D R AA P");
 		
-//		hardCorrect.add("ELUCUBRATE");			hardWrong.add("ELUKUBRAIT");
-//		hardThreshold.add(1e-35f);				hardImage.add("ELUCUBRATE - elukubrait.jpg");
-//		hardPhoneme.add("");
-//		
-//		hardCorrect.add("ESQUAMULOSE");			hardWrong.add("ESQUAMMULOSE");
-//		hardThreshold.add(1e-35f);				hardImage.add("ESQUAMULOSE - esquammulose.jpg");
-//		hardPhoneme.add("");
-//		
-//		hardCorrect.add("GAZETTEER");			hardWrong.add("GAZETEER");
-//		hardThreshold.add(1e-35f);				hardImage.add("GAZETTEER - gazeteer.jpg");
-//		hardPhoneme.add("");
-//		
-//		hardCorrect.add("GYMKHANA");			hardWrong.add("GYMKANA");
-//		hardThreshold.add(1e-35f);				hardImage.add("GYMKHANA - gymkana.jpg");
-//		hardPhoneme.add("");
+		hardCorrect.add("ELUCUBRATE");			hardWrong.add("ELUKUBRAIT");
+		hardThreshold.add(1e-35f);				hardImage.add("ELUCUBRATE - elukubrait.jpg");
+		hardPhoneme.add("IH L UW K Y UW B R EY T");
+		
+		hardCorrect.add("ESQUAMULOSE");			hardWrong.add("ESQUAMMULOSE");
+		hardThreshold.add(1e-35f);				hardImage.add("ESQUAMULOSE - esquammulose.jpg");
+		hardPhoneme.add("EH S K W AA M Y UW L OW S");
+		
+		hardCorrect.add("GAZETTEER");			hardWrong.add("GAZETEER");
+		hardThreshold.add(1e-35f);				hardImage.add("GAZETTEER - gazeteer.jpg");
+		hardPhoneme.add("G AH Z IY T IH R");
+		
+		hardCorrect.add("GYMKHANA");			hardWrong.add("GYMKANA");
+		hardThreshold.add(1e-35f);				hardImage.add("GYMKHANA - gymkana.jpg");
+		hardPhoneme.add("JH IH M K AE N AH");
 		
 		hardCorrect.add("HERBACEOUS");			hardWrong.add("HERBACIOUS");
 		hardThreshold.add(1e-20f);				hardImage.add("HERBACEOUS - herbacious.jpg");
@@ -377,9 +382,9 @@ public class Constants {
 		hardThreshold.add(1e-20f);				hardImage.add("MOUSTACHE - mousttache.jpg");
 		hardPhoneme.add("M AH S T AE SH");
 		
-//		hardCorrect.add("ORFEVRERIE");			hardWrong.add("ORFEVRERRIE");
-//		hardThreshold.add(1e-35f);				hardImage.add("ORFEVRERIE - orfevrerrie.jpg");
-//		hardPhoneme.add("");
+		hardCorrect.add("ORFEVRERIE");			hardWrong.add("ORFEVRERRIE");
+		hardThreshold.add(1e-35f);				hardImage.add("ORFEVRERIE - orfevrerrie.jpg");
+		hardPhoneme.add("AO P IH V R EH R IY");
 		
 		hardCorrect.add("PARAPHERNALIA");		hardWrong.add("PHARAPERNALIA");
 		hardThreshold.add(1e-30f);				hardImage.add("PARAPHERNALIA - pharapernalia.jpg");
@@ -409,9 +414,9 @@ public class Constants {
 		hardThreshold.add(1e-30f);				hardImage.add("POLTERGEIST - poltergiest.jpg");
 		hardPhoneme.add("P OW L T ER G AY S T");
 		
-//		hardCorrect.add("PSITTACINE");			hardWrong.add("PSYTTACINE");
-//		hardThreshold.add(1e-35f);				hardImage.add("PSITTACINE - psyttacine.jpg");
-//		hardPhoneme.add("");
+		hardCorrect.add("PSITTACINE");			hardWrong.add("PSYTTACINE");
+		hardThreshold.add(1e-35f);				hardImage.add("PSITTACINE - psyttacine.jpg");
+		hardPhoneme.add("S IH T AH S AY N");
 		
 		hardCorrect.add("QUEUE");				hardWrong.add("QUEEUE");
 		hardThreshold.add(1e-10f);				hardImage.add("QUEUE - queeue.jpg");
@@ -425,9 +430,9 @@ public class Constants {
 		hardThreshold.add(1e-25f);				hardImage.add("SILHOUETTE - silouette.jpg");
 		hardPhoneme.add("S IH L AH W EH T");
 		
-//		hardCorrect.add("SMARAGDINE");			hardWrong.add("SMARUGDINE");
-//		hardThreshold.add(1e-35f);				hardImage.add("SMARAGDINE - smarugdine.jpg");
-//		hardPhoneme.add("");
+		hardCorrect.add("SMARAGDINE");			hardWrong.add("SMARUGDINE");
+		hardThreshold.add(1e-35f);				hardImage.add("SMARAGDINE - smarugdine.jpg");
+		hardPhoneme.add("Z M AH R AE G D IY N");
 		
 		hardCorrect.add("STRAITJACKET");		hardWrong.add("STRAIGHTJACKET");
 		hardThreshold.add(1e-30f);				hardImage.add("STRAITJACKET - straightjacket.jpg");

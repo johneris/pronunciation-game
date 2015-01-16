@@ -7,7 +7,9 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import com.johneris.pronunciationtutor.common.Constants;
+import com.johneris.pronunciationtutor.common.Keys;
 import com.johneris.pronunciationtutor.common.MusicManager;
+import com.johneris.pronunciationtutor.common.ResultWrapper;
 import com.johneris.pronunciationtutor.common.UserProfile;
 
 import android.annotation.SuppressLint;
@@ -33,20 +35,24 @@ import android.widget.Toast;
 
 public class ScoresActivity extends Activity {
 
-	/* boolean to continue playing music
-	*/
+	/**
+	 * boolean to continue playing music
+	 */
 	boolean continueMusic = true;
 	
-	/* table for scores
-	*/
+	/**
+	 * table for scores
+	 */
 	TableLayout tableLayout;
 	
-	/* button to clear all saved scores
-	*/
+	/**
+	 * button to clear all saved scores
+	 */
 	Button buttonClear;
 
-	/* button to go back to Main Menu
-	*/
+	/**
+	 * button to go back to Main Menu
+	 */
 	Button buttonBackToMainMenu;
 	
 	
@@ -114,66 +120,23 @@ public class ScoresActivity extends Activity {
 			}
 		});
         
+        loadUserProfiles();
         loadTable();
 	}
 	
 	
 	
-	/* load table of scores
-	*/
+	/**
+	 * load table of scores
+	 */
 	private void loadTable() {
-		
-		// load user profiles
-		loadUserProfiles();
 		
 		// remove all scores in table
 		tableLayout.removeAllViews();
 		
-		int textViewWidth = 90;
 		int textViewNameWidth = 100;
 		int buttonDeleteWidth = 50;
 		int buttonDeleteHeight = 50;
-		
-		// top labels :   Name   Easy   Normal   Hard
-
-		// layout that will contain the textViews
-		LinearLayout linearLayout = new LinearLayout(getApplicationContext());
-		
-		TextView textViewNameLbl = new TextView(getApplicationContext());
-    	textViewNameLbl.setText("Name");
-    	textViewNameLbl.setWidth(textViewNameWidth);
-    	
-    	TextView textViewEasyLbl = new TextView(getApplicationContext());
-    	textViewEasyLbl.setText("Easy");
-    	textViewEasyLbl.setWidth(textViewWidth);
-    	
-    	TextView textViewNormalLbl = new TextView(getApplicationContext());
-    	textViewNormalLbl.setText("Normal");
-    	textViewNormalLbl.setWidth(textViewWidth);
-    	
-    	TextView textViewHardLbl = new TextView(getApplicationContext());
-    	textViewHardLbl.setText("Hard");
-    	textViewHardLbl.setWidth(textViewWidth);
-    	
-    	// space for delete button
-    	TextView dummy = new TextView(getApplicationContext());
-    	dummy.setText("");
-    	dummy.setWidth(buttonDeleteWidth);
-    	
-    	// add views to layout
-    	linearLayout.addView(textViewNameLbl);
-    	linearLayout.addView(textViewEasyLbl);
-    	linearLayout.addView(textViewNormalLbl);
-    	linearLayout.addView(textViewHardLbl);
-    	linearLayout.addView(dummy);
-
-    	// add layout to table row
-		TableRow tableRowLbl = new TableRow(getApplicationContext());
-		tableRowLbl.addView(linearLayout);
-		tableRowLbl.setGravity(Gravity.CENTER);
-		
-		// add table row to table
-		tableLayout.addView(tableRowLbl);
 
 		// fill table with user profiles
 		for(int i = 0; i < Constants.lstUserProfile.size(); i++) {
@@ -183,20 +146,63 @@ public class ScoresActivity extends Activity {
 			LinearLayout linearLayoutItem = new LinearLayout(getApplicationContext());
 			
         	TextView textViewName = new TextView(getApplicationContext());
-        	textViewName.setText(userProfile.getUserName());
+        	textViewName.setText(userProfile.userName);
         	textViewName.setWidth(textViewNameWidth);
+        	textViewName.setTextSize(15);
         	
-        	TextView textViewEasy = new TextView(getApplicationContext());
-        	textViewEasy.setText("" + userProfile.getEasyScore());
-        	textViewEasy.setWidth(textViewWidth);
+        	Button buttonEasy = new Button(getApplicationContext());
+        	buttonEasy.setText("Easy");
+        	buttonEasy.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Intent intent = new Intent(ScoresActivity.this, ScoresPreviewActivity.class);
+					
+					// send player name
+					intent.putExtra(Keys.PLAYER_NAME, userProfile.userName);
+
+					// send game mode
+					intent.putExtra(Keys.GAME_MODE, Constants.GAMEMODE_EASY);
+					
+					startActivity(intent);
+					finish();
+				}
+        	});
         	
-        	TextView textViewNormal = new TextView(getApplicationContext());
-        	textViewNormal.setText("" + userProfile.getNormalScore());
-        	textViewNormal.setWidth(textViewWidth);
+        	Button buttonNormal = new Button(getApplicationContext());
+        	buttonNormal.setText("Normal");
+        	buttonNormal.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Intent intent = new Intent(ScoresActivity.this, ScoresPreviewActivity.class);
+					
+					// send player name
+					intent.putExtra(Keys.PLAYER_NAME, userProfile.userName);
+
+					// send game mode
+					intent.putExtra(Keys.GAME_MODE, Constants.GAMEMODE_NORMAL);
+					
+					startActivity(intent);
+					finish();
+				}
+        	});
         	
-        	TextView textViewHard = new TextView(getApplicationContext());
-        	textViewHard.setText("" + userProfile.getHardScore());
-        	textViewHard.setWidth(textViewWidth);
+        	Button buttonHard = new Button(getApplicationContext());
+        	buttonHard.setText("Hard");
+        	buttonHard.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					Intent intent = new Intent(ScoresActivity.this, ScoresPreviewActivity.class);
+					
+					// send player name
+					intent.putExtra(Keys.PLAYER_NAME, userProfile.userName);
+
+					// send game mode
+					intent.putExtra(Keys.GAME_MODE, Constants.GAMEMODE_HARD);
+					
+					startActivity(intent);
+					finish();
+				}
+        	});
         	
         	// delete profile button
         	Button buttonDelete = new Button(getApplicationContext());
@@ -217,9 +223,19 @@ public class ScoresActivity extends Activity {
         	
         	// add to layout
         	linearLayoutItem.addView(textViewName);
-        	linearLayoutItem.addView(textViewEasy);
-        	linearLayoutItem.addView(textViewNormal);
-        	linearLayoutItem.addView(textViewHard);
+        	linearLayoutItem.addView(buttonEasy);
+        	linearLayoutItem.addView(buttonNormal);
+        	linearLayoutItem.addView(buttonHard);
+        	
+        	if(userProfile.lstEasyResult.isEmpty()) {
+        		buttonEasy.setEnabled(false);
+        	}
+        	if(userProfile.lstNormalResult.isEmpty()) {
+        		buttonNormal.setEnabled(false);
+        	}
+        	if(userProfile.lstHardResult.isEmpty()) {
+        		buttonHard.setEnabled(false);
+        	}
         	linearLayoutItem.addView(buttonDelete);
 			
 			// add layout to table row
@@ -233,30 +249,92 @@ public class ScoresActivity extends Activity {
 	}
 	
 	
-
-	/* load user profiles from
+	
+	/**
+	 * load user profiles from
 	 * file common.Constants.userScoreFile
-	*/
+	 */
 	private void loadUserProfiles() {
+		if(!Constants.lstUserProfile.isEmpty())	return;
 		
-		if(!Constants.lstUserProfile.isEmpty()) return;
-		
+		// initialize Constants.lstUserProfile
 		Constants.lstUserProfile = new ArrayList<>();
+		
 		try {
+			// create InputStream in for Constants.userScoreFile file
 			InputStream in = openFileInput(Constants.userScoreFile);
+			
 			if (in != null) {
-				InputStreamReader tmp = new InputStreamReader(in);
-				BufferedReader reader = new BufferedReader(tmp);
+				
+				// initialize BufferedReader reader
+				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+				
+				// store the line from file to str
 				String str;
-				while ((str = reader.readLine()) != null) {
-					String [] user = str.split(" ");
-					UserProfile userProfile = new UserProfile(user[0],
-							Integer.parseInt(user[1]),	// easy score
-							Integer.parseInt(user[2]),	// normal score
-							Integer.parseInt(user[3]));	// hard score
-					// add to common.Constants.lstUserProfile
-					Constants.lstUserProfile.add(userProfile);
+				
+				// while not end of file, read one instance of userProfile
+				while((str = reader.readLine()) != null) {
+					
+					// initialize instance of userProfile
+					UserProfile userProfile = new UserProfile();
+					
+					// get the userName
+					userProfile.userName = str;
+					
+					// for 3 game modes Easy, Normal, Hard 
+					for(int mode = 0; mode < 3; mode++) {
+						
+						// read line for game mode and number of games played
+						// gameMode numberOfGamesPlayed
+						str = reader.readLine();
+						// game mode
+						String gameMode = str.split(" ")[0];
+						// number of games played
+						int numberOfGamesPlayed = Integer.parseInt(str.split(" ")[1]);
+						
+						// for numberOfGamesPlayed
+						for(int n = 0; n < numberOfGamesPlayed; n++) {
+							
+							// read line of words and scores
+							// word score word score ...
+							str = reader.readLine();
+							
+							// split str
+							String [] arrResult = str.split(" ");
+							
+							// initialize list of words
+							ArrayList<String> lstWord = new ArrayList<>();
+							// initialize list of scores
+							ArrayList<Integer> lstScore = new ArrayList<>();
+							
+							// for all items per game
+							for(int i = 0; i < Constants.itemsPerGame; i++) {
+								// add word to list of words
+								lstWord.add(arrResult[i]);
+								// add score to list of scores
+								lstScore.add(Integer.parseInt(arrResult[i+1]));
+							}
+							
+							// create ResultWrapper resultWrapper
+							ResultWrapper resultWrapper = new ResultWrapper();
+							// add the list of words to resultWrapper
+							resultWrapper.lstWord = new ArrayList<>(lstWord);
+							// add the list of scores to resultWrapper
+							resultWrapper.lstScore = new ArrayList<>(lstScore);
+							
+							// add resultWrapper according to game mode
+							if(gameMode.equals(Constants.GAMEMODE_EASY)) {
+								userProfile.lstEasyResult.add(resultWrapper);
+							} else if(gameMode.equals(Constants.GAMEMODE_NORMAL)) {
+								userProfile.lstNormalResult.add(resultWrapper);
+							}  else if(gameMode.equals(Constants.GAMEMODE_HARD)) {
+								userProfile.lstHardResult.add(resultWrapper);
+							} 
+						}
+					}
 				}
+				
+				// close InputStream in
 				in.close();
 			}
 		} catch (java.io.FileNotFoundException e) {
@@ -267,25 +345,74 @@ public class ScoresActivity extends Activity {
 	
 	
 	
-	/* save user profiles to file
-	*/
+	/**
+	 * save user profiles to file
+	 */
 	private void saveUserProfiles() {
-		
 		try {
+			// create an OuputStreamWriter out to write to Constants.userScoreFile file
 			OutputStreamWriter out = new OutputStreamWriter(
 					openFileOutput(Constants.userScoreFile, 0));
+			
 			// save all data from common.Constants.lstUserProfile
 			for(UserProfile userProfile : Constants.lstUserProfile) {
-				out.write(userProfile.getUserName() + " " +
-							userProfile.getEasyScore() + " " +
-							userProfile.getNormalScore() + " " +
-							userProfile.getHardScore() + " " +
-							"\n");
+				
+				// write user name
+				// userProfile.userName
+				out.write(userProfile.userName + "\n");
+				
+				// write scores in easy mode
+				// Constants.GAMEMODE_EASY userProfile.lstEasyResult.size()
+				// word score word score ...
+				out.write(Constants.GAMEMODE_EASY + " "
+						+ userProfile.lstEasyResult.size() + "\n");
+				for(int i = 0; i < userProfile.lstEasyResult.size(); i++) {
+					ResultWrapper resultWrapper = userProfile.lstEasyResult.get(i);
+					for(int j = 0; j < resultWrapper.lstWord.size(); j++) {
+						out.write(resultWrapper.lstWord.get(j) + " "
+								+ resultWrapper.lstScore.get(j) + " ");
+					}
+					out.write("\n");
+				}
+				
+				// write scores in normal mode
+				// Constants.GAMEMODE_NORMAL userProfile.lstNormalResult.size()
+				// word score word score ...
+				out.write(Constants.GAMEMODE_NORMAL + " "
+						+ userProfile.lstNormalResult.size() + "\n");
+				for(int i = 0; i < userProfile.lstNormalResult.size(); i++) {
+					ResultWrapper resultWrapper = userProfile.lstNormalResult.get(i);
+					for(int j = 0; j < resultWrapper.lstWord.size(); j++) {
+						out.write(resultWrapper.lstWord.get(j) + " "
+								+ resultWrapper.lstScore.get(j) + " ");
+					}
+					out.write("\n");
+				}
+				
+				// write scores in hard mode
+				// Constants.GAMEMODE_HARD userProfile.lstHardResult.size()
+				// word score word score ...
+				out.write(Constants.GAMEMODE_HARD + " "
+						+ userProfile.lstHardResult.size() + "\n");
+				for(int i = 0; i < userProfile.lstHardResult.size(); i++) {
+					ResultWrapper resultWrapper = userProfile.lstHardResult.get(i);
+					for(int j = 0; j < resultWrapper.lstWord.size(); j++) {
+						out.write(resultWrapper.lstWord.get(j) + " "
+								+ resultWrapper.lstScore.get(j) + " ");
+					}
+					out.write("\n");
+				}
 			}
+			
+			// close OutputStreamWriter out
 			out.close();
-			Toast.makeText(getApplicationContext(), "Saved", 
+			
+			// display "User data saved"
+			Toast.makeText(getApplicationContext(), "User data saved", 
 					Toast.LENGTH_SHORT).show();
+		
 		} catch(Throwable t) {
+			// display "Save failed"
 			Toast.makeText(getApplicationContext(), "Save failed", 
 					Toast.LENGTH_SHORT).show();
 		}

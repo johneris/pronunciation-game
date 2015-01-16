@@ -24,24 +24,29 @@ import android.widget.ImageView;
 
 public class GameModeActivity extends Activity {
 
-	/* boolean to continue playing music 
-	*/
+	/**
+	 * boolean to continue playing music 
+	 */
 	boolean continueMusic = true;
 	
-	/* editText for input user name 
-	*/
+	/**
+	 * editText for input user name 
+	 */
 	EditText editTextName;
 
-	/* button for easy mode
-	*/
+	/**
+	 * button for easy mode
+	 */
 	Button buttonEasy;
 
-	/* button for normal mode 
-	*/
+	/**
+	 * button for normal mode 
+	 */
 	Button buttonNormal;
 
-	/* button for hard mode 
-	*/
+	/**
+	 * button for hard mode 
+	 */
 	Button buttonHard;
 	
 	
@@ -154,8 +159,9 @@ public class GameModeActivity extends Activity {
 	
 	
 	
-	/* disable all buttons 
-	*/
+	/**
+	 * disable all buttons 
+	 */
 	private void disableButtons() {
 		buttonEasy.setEnabled(false);
 		buttonNormal.setEnabled(false);
