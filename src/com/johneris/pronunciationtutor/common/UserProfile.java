@@ -1,8 +1,11 @@
 package com.johneris.pronunciationtutor.common;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserProfile {
+public class UserProfile implements Serializable {
+
+	private static final long serialVersionUID = -581702561632077140L;
 
 	/**
 	 * name of user

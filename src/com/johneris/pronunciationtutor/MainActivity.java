@@ -2,8 +2,12 @@ package com.johneris.pronunciationtutor;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
+import com.johneris.pronunciationtutor.common.Constants;
 import com.johneris.pronunciationtutor.common.Recognizer;
+import com.johneris.pronunciationtutor.common.StoreUserProfiles;
+import com.johneris.pronunciationtutor.common.UserProfile;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,6 +33,14 @@ public class MainActivity extends Activity {
             @Override
             protected Exception doInBackground(Void... params) {
                 try {
+                	// load user profiles
+                	ArrayList<UserProfile> lstUserProfile 
+                			= StoreUserProfiles.readFromFile(getApplicationContext());
+                	if(lstUserProfile == null) {
+                		Constants.lstUserProfile = new ArrayList<UserProfile>();
+                	} else {
+                		Constants.lstUserProfile = lstUserProfile;
+                	}
                 	// sync assets
                     Assets assets = new Assets(MainActivity.this);
                     File assetDir = assets.syncAssets();

@@ -20,7 +20,7 @@ public class Constants {
 	 * number of words to pronounce
 	 * per game instance
 	 */
-	public static final int itemsPerGame = 10;
+	public static final int itemsPerGame = 2;
 
 	/**
 	 * list of word, threshold, image, 

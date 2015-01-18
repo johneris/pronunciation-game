@@ -1,15 +1,12 @@
 package com.johneris.pronunciationtutor;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import com.johneris.pronunciationtutor.common.Constants;
 import com.johneris.pronunciationtutor.common.Keys;
 import com.johneris.pronunciationtutor.common.MusicManager;
 import com.johneris.pronunciationtutor.common.ResultWrapper;
+import com.johneris.pronunciationtutor.common.StoreUserProfiles;
 import com.johneris.pronunciationtutor.common.UserProfile;
 
 import android.annotation.SuppressLint;
@@ -31,7 +28,6 @@ import android.widget.RatingBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ResultActivity extends Activity {
 
@@ -205,107 +201,10 @@ public class ResultActivity extends Activity {
 	
 	
 	/**
-	 * load user profiles from
-	 * file common.Constants.userScoreFile
-	 */
-	private void loadUserProfiles() {
-		if(!Constants.lstUserProfile.isEmpty())	return;
-		
-		// initialize Constants.lstUserProfile
-		Constants.lstUserProfile = new ArrayList<>();
-		
-		try {
-			// create InputStream in for Constants.userScoreFile file
-			InputStream in = openFileInput(Constants.userScoreFile);
-			
-			if (in != null) {
-				
-				// initialize BufferedReader reader
-				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-				
-				// store the line from file to str
-				String str;
-				
-				// while not end of file, read one instance of userProfile
-				while((str = reader.readLine()) != null) {
-					
-					// initialize instance of userProfile
-					UserProfile userProfile = new UserProfile();
-					
-					// get the userName
-					userProfile.userName = str;
-					
-					// for 3 game modes Easy, Normal, Hard 
-					for(int mode = 0; mode < 3; mode++) {
-						
-						// read line for game mode and number of games played
-						// gameMode numberOfGamesPlayed
-						str = reader.readLine();
-						// game mode
-						String gameMode = str.split(" ")[0];
-						// number of games played
-						int numberOfGamesPlayed = Integer.parseInt(str.split(" ")[1]);
-						
-						// for numberOfGamesPlayed
-						for(int n = 0; n < numberOfGamesPlayed; n++) {
-							
-							// read line of words and scores
-							// word score word score ...
-							str = reader.readLine();
-							
-							// split str
-							String [] arrResult = str.split(" ");
-							
-							// initialize list of words
-							ArrayList<String> lstWord = new ArrayList<>();
-							// initialize list of scores
-							ArrayList<Integer> lstScore = new ArrayList<>();
-							
-							// for all items per game
-							for(int i = 0; i < Constants.itemsPerGame; i++) {
-								// add word to list of words
-								lstWord.add(arrResult[i]);
-								// add score to list of scores
-								lstScore.add(Integer.parseInt(arrResult[i+1]));
-							}
-							
-							// create ResultWrapper resultWrapper
-							ResultWrapper resultWrapper = new ResultWrapper();
-							// add the list of words to resultWrapper
-							resultWrapper.lstWord = new ArrayList<>(lstWord);
-							// add the list of scores to resultWrapper
-							resultWrapper.lstScore = new ArrayList<>(lstScore);
-							
-							// add resultWrapper according to game mode
-							if(gameMode.equals(Constants.GAMEMODE_EASY)) {
-								userProfile.lstEasyResult.add(resultWrapper);
-							} else if(gameMode.equals(Constants.GAMEMODE_NORMAL)) {
-								userProfile.lstNormalResult.add(resultWrapper);
-							}  else if(gameMode.equals(Constants.GAMEMODE_HARD)) {
-								userProfile.lstHardResult.add(resultWrapper);
-							} 
-						}
-					}
-				}
-				
-				// close InputStream in
-				in.close();
-			}
-		} catch (java.io.FileNotFoundException e) {
-			// that's OK, we probably haven't created it 
-		} catch (Throwable t) {
-		}
-	}
-	
-	
-	
-	/**
 	 * save user data from 
 	 * the results of the game
 	 */
 	private void saveUserData() {
-		
-		loadUserProfiles();
 		
 		// boolean to indicate if user exists
 		boolean isSaved = false;
@@ -364,82 +263,7 @@ public class ResultActivity extends Activity {
 		}
 		
 		// save user profiles
-		saveUserProfiles();
-	}
-	
-	
-	
-	/**
-	 * save user profiles to file
-	 */
-	private void saveUserProfiles() {
-		try {
-			// create an OuputStreamWriter out to write to Constants.userScoreFile file
-			OutputStreamWriter out = new OutputStreamWriter(
-					openFileOutput(Constants.userScoreFile, 0));
-			
-			// save all data from common.Constants.lstUserProfile
-			for(UserProfile userProfile : Constants.lstUserProfile) {
-				
-				// write user name
-				// userProfile.userName
-				out.write(userProfile.userName + "\n");
-				
-				// write scores in easy mode
-				// Constants.GAMEMODE_EASY userProfile.lstEasyResult.size()
-				// word score word score ...
-				out.write(Constants.GAMEMODE_EASY + " "
-						+ userProfile.lstEasyResult.size() + "\n");
-				for(int i = 0; i < userProfile.lstEasyResult.size(); i++) {
-					ResultWrapper resultWrapper = userProfile.lstEasyResult.get(i);
-					for(int j = 0; j < resultWrapper.lstWord.size(); j++) {
-						out.write(resultWrapper.lstWord.get(j) + " "
-								+ resultWrapper.lstScore.get(j) + " ");
-					}
-					out.write("\n");
-				}
-				
-				// write scores in normal mode
-				// Constants.GAMEMODE_NORMAL userProfile.lstNormalResult.size()
-				// word score word score ...
-				out.write(Constants.GAMEMODE_NORMAL + " "
-						+ userProfile.lstNormalResult.size() + "\n");
-				for(int i = 0; i < userProfile.lstNormalResult.size(); i++) {
-					ResultWrapper resultWrapper = userProfile.lstNormalResult.get(i);
-					for(int j = 0; j < resultWrapper.lstWord.size(); j++) {
-						out.write(resultWrapper.lstWord.get(j) + " "
-								+ resultWrapper.lstScore.get(j) + " ");
-					}
-					out.write("\n");
-				}
-				
-				// write scores in hard mode
-				// Constants.GAMEMODE_HARD userProfile.lstHardResult.size()
-				// word score word score ...
-				out.write(Constants.GAMEMODE_HARD + " "
-						+ userProfile.lstHardResult.size() + "\n");
-				for(int i = 0; i < userProfile.lstHardResult.size(); i++) {
-					ResultWrapper resultWrapper = userProfile.lstHardResult.get(i);
-					for(int j = 0; j < resultWrapper.lstWord.size(); j++) {
-						out.write(resultWrapper.lstWord.get(j) + " "
-								+ resultWrapper.lstScore.get(j) + " ");
-					}
-					out.write("\n");
-				}
-			}
-			
-			// close OutputStreamWriter out
-			out.close();
-			
-			// display "User data saved"
-			Toast.makeText(getApplicationContext(), "User data saved", 
-					Toast.LENGTH_SHORT).show();
-		
-		} catch(Throwable t) {
-			// display "Save failed"
-			Toast.makeText(getApplicationContext(), "Save failed", 
-					Toast.LENGTH_SHORT).show();
-		}
+		StoreUserProfiles.saveToFile(getApplicationContext());
 	}
 	
 	
