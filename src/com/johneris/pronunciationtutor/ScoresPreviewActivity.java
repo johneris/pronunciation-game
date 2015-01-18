@@ -56,6 +56,11 @@ public class ScoresPreviewActivity extends Activity {
 	TableLayout tableLayout;
 	
 	/**
+	 * textView for date and time played
+	 */
+	TextView textViewDateAndTimePlayed;
+	
+	/**
 	 * textView for total score
 	 */
 	TextView textViewTotalScoreVal;
@@ -94,7 +99,6 @@ public class ScoresPreviewActivity extends Activity {
 	 * game mode
 	 */
 	String gameMode;
-	
 	
 	
 	@SuppressLint("NewApi")
@@ -184,6 +188,8 @@ public class ScoresPreviewActivity extends Activity {
 		
 		tableLayout = (TableLayout) findViewById(R.id.scores_tableLayout);
 		
+		textViewDateAndTimePlayed = (TextView) findViewById(R.id.scorespreview_textViewDateAndTimeVal);
+		
 		for(UserProfile u : Constants.lstUserProfile) {
 			if(u.userName.equals(playerName)) {
 				this.userProfile = u;
@@ -235,24 +241,26 @@ public class ScoresPreviewActivity extends Activity {
 	private void loadTable() {
 		tableLayout.removeAllViews();
 		
+		ResultWrapper result = lstResultWrapper.get(currIndex);
+		
 		// fill table with results
-		for(int i = 0; i < lstResultWrapper.get(currIndex).lstWord.size(); i++) {
+		for(int i = 0; i < result.lstWord.size(); i++) {
 					
 			// word
 			TextView textViewWord = new TextView(getApplicationContext());
-			textViewWord.setText(lstResultWrapper.get(currIndex).lstWord.get(i));
+			textViewWord.setText(result.lstWord.get(i));
 			
 			// score
 			RatingBar ratingBarScore = new RatingBar(getApplicationContext());
 			ratingBarScore.setEnabled(false);
 			ratingBarScore.setNumStars(3);
-			ratingBarScore.setRating(lstResultWrapper.get(currIndex).lstScore.get(i));
+			ratingBarScore.setRating(result.lstScore.get(i));
 			
 			// create a table row
 			TableRow tableRow = new TableRow(getApplicationContext());
 			
 			// if perfect score add badge
-			if(lstResultWrapper.get(currIndex).lstScore.get(i) == 3) {
+			if(result.lstScore.get(i) == 3) {
 				ImageView imageBadge = new ImageView(getApplicationContext());
 				imageBadge.setImageResource(R.drawable.badge);
 				tableRow.addView(imageBadge);
@@ -270,6 +278,7 @@ public class ScoresPreviewActivity extends Activity {
 			// add the row to table
 			tableLayout.addView(tableRow);
 		}
+		textViewDateAndTimePlayed.setText("" + result.dateAndTimePlayed);
 		textViewTotalScoreVal.setText("" + totalScore());
 	}
 	

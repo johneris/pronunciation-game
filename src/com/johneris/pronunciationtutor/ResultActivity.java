@@ -1,6 +1,8 @@
 package com.johneris.pronunciationtutor;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.johneris.pronunciationtutor.common.Constants;
 import com.johneris.pronunciationtutor.common.Keys;
@@ -209,17 +211,20 @@ public class ResultActivity extends Activity {
 		// boolean to indicate if user exists
 		boolean isSaved = false;
 		
+		// create a ResultWrapper resultWrapper to wrap the result
+		ResultWrapper resultWrapper = new ResultWrapper();
+		resultWrapper.dateAndTimePlayed = DateFormat.getDateTimeInstance()
+				.format(Calendar.getInstance().getTime());
+		resultWrapper.lstWord = new ArrayList<>(this.lstWord);
+		resultWrapper.lstScore = new ArrayList<>(this.lstScore);
+		
+		
 		// find user if exists
 		for(UserProfile userProfile : Constants.lstUserProfile) {
 			
 			// if userName exists
 			if(userProfile.userName.equals(playerName)) {
-				
-				// create a ResultWrapper resultWrapper to wrap the result
-				ResultWrapper resultWrapper = new ResultWrapper();
-				resultWrapper.lstWord = new ArrayList<>(this.lstWord);
-				resultWrapper.lstScore = new ArrayList<>(this.lstScore);
-				
+						
 				// add score according to game mode
 				if(gameMode.equals(Constants.GAMEMODE_EASY)) {
 					userProfile.lstEasyResult.add(resultWrapper);
@@ -243,11 +248,6 @@ public class ResultActivity extends Activity {
 			
 			// set user name
 			user.userName = playerName;
-			
-			// create a ResultWrapper resultWrapper to wrap the result
-			ResultWrapper resultWrapper = new ResultWrapper();
-			resultWrapper.lstWord = new ArrayList<>(this.lstWord);
-			resultWrapper.lstScore = new ArrayList<>(this.lstScore);
 			
 			// add score according to game mode
 			if(gameMode.equals(Constants.GAMEMODE_EASY)) {
