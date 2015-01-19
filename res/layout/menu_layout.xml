@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/menu_textViewWatchTutorialPadding"
-            android:text="@string/menu_textViewWatchTutorial" />
+            android:text="@string/menu_textViewWatchTutorial"
+            android:textColor="#000000" />
 	
 	    <ImageView
 	        android:id="@+id/menu_imageViewLogo"

@@ -9,6 +9,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -81,6 +83,9 @@ public class MenuActivity extends Activity {
         
         textViewWatchTutorial = (TextView) findViewById(R.id.menu_textViewWatchTutorial);
         textViewWatchTutorial.setClickable(true);
+        SpannableString content = new SpannableString("Watch Tutorial");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        textViewWatchTutorial.setText(content);
         textViewWatchTutorial.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {

@@ -8,6 +8,7 @@ import com.johneris.pronunciationtutor.common.MusicManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -135,14 +136,17 @@ public class VideoActivity extends Activity {
 		lstVideoTutorial = new ArrayList<>();
 		hashVideoTutorial = new HashMap<String, Integer>();
 		
-		lstVideoTutorial.add("video1");
-		hashVideoTutorial.put("video1", R.raw.video1);
+		lstVideoTutorial.add("Stress and Rhythm");
+		hashVideoTutorial.put("Stress and Rhythm", R.raw.stress_and_rhythm);
 		
-		lstVideoTutorial.add("video2");
-		hashVideoTutorial.put("video2", R.raw.video2);
+		lstVideoTutorial.add("Introduction to Intonation");
+		hashVideoTutorial.put("Introduction to Intonation", R.raw.introduction_to_intonation);
 		
-		lstVideoTutorial.add("kitkat");
-		hashVideoTutorial.put("kitkat", R.raw.kitkat);
+		lstVideoTutorial.add("Basic Helping Verbs");
+		hashVideoTutorial.put("Basic Helping Verbs", R.raw.basic_helping_verbs_in_english);
+		
+		lstVideoTutorial.add("Seat, Sit, Set");
+		hashVideoTutorial.put("Seat, Sit, Set", R.raw.seat_sit_set);
 	}
 
 	@Override
@@ -157,6 +161,16 @@ public class VideoActivity extends Activity {
 		super.onRestoreInstanceState(savedInstanceState);
 		position = savedInstanceState.getInt("Position");
 		videoView.seekTo(position);
+	}
+	
+	
+	
+	public void onBackPressed() {
+		// start MenuActivity and finish VideoActivity
+		Intent intent = new Intent(VideoActivity.this, MenuActivity.class);
+    	startActivity(intent);
+    	finish();
+    	super.onBackPressed();
 	}
 	
 	

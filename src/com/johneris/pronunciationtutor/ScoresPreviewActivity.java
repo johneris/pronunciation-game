@@ -298,7 +298,7 @@ public class ScoresPreviewActivity extends Activity {
 	
 	
 	public void onBackPressed() {
-		// start MenuActivity and finish ScoresActivity
+		// start ScoresActivity and finish ScoresPreviewActivity
 		Intent intent = new Intent(ScoresPreviewActivity.this, ScoresActivity.class);
     	startActivity(intent);
     	finish();
