@@ -54,6 +54,7 @@
             android:id="@+id/iterationresult_buttonPronounce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/iterationresult_imageViewPronounceDesc"
             android:cropToPadding="false"
             android:src="@drawable/pronounce" />
 

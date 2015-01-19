@@ -115,7 +115,7 @@
 	            android:id="@+id/instructions_buttonPlayNow"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="Play Now" />
+	            android:text="@string/instructions_buttonPlayNow" />
 
 	        <TextView
 	            android:id="@+id/instructions_textViewHowTo"

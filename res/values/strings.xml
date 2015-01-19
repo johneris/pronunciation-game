@@ -10,6 +10,7 @@
     <string name="menu_buttonPlay">PLAY</string>
     <string name="menu_buttonScores">SCORES</string>
     <string name="menu_buttonInstructions">HOW TO PLAY</string>
+    <string name="menu_textViewWatchTutorial">Watch Tutorial</string>
     
     <!-- Game Mode -->
     <string name="gamemode_textViewEnterName">Enter Name:</string>
@@ -47,20 +48,20 @@
     <string name="iterationresult_textViewWordLbl">Word:</string>
     <string name="iterationresult_textViewWordVal">Someword</string>
     <string name="iterationresult_textViewPronunciationVal">P RO NUN CI A TION</string>
+    <string name="iterationresult_imageViewPronounceDesc">Pronounce</string>
     
     <!-- Instructions -->
     <string name="instructions_textViewInstructions">Instructions</string>
-    <string name="instructions_textViewHowTo">\tEnter your name and choose the \n
-        level of difficulty. There are 10 words \n
-        per game. You will be given 3 chances \n
-        to pronunce the right word based on \n
-        the given image. The score depends on \n
-        the trials made before accomplishing \n
-        the task. Click the record button to \n
-        record your voice. Click the skip button \n
-        to move to the next word but remember \n
-        that doing so would make your score 0 \n
-        for that word.
-        </string>
+    <string name="instructions_textViewHowTo">How to</string>
+    <string name="instructions_buttonPlayNow">Play Now</string>
+    
+    <!-- Scores Preview -->
+    <string name="scorespreview_textViewTimesPlayed">(times played)</string>
+    <string name="scorespreview_buttonPrevious">Previous</string>
+    <string name="scorespreview_buttonNext">Next</string>
+    <string name="scorespreview_textViewDateAndTimeVal">Date and Time</string>
+    
+    <!-- Video -->
+    <string name="video_textViewVideoTutorialsLbl">Video Tutorials</string>
     
 </resources>

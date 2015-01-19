@@ -58,6 +58,7 @@ public class Constants {
 	public static final String userScoreFile = "userScore.txt";
 	public static ArrayList<UserProfile> lstUserProfile;
 	
+	
 	static {
 		
 		lstUserProfile = new ArrayList<>();

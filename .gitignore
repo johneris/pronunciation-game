@@ -24,3 +24,7 @@ proguard/
 
 # Log Files
 *.log
+
+# Video files for video tutorial
+*.mp4
+*.3gp

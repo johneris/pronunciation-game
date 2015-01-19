@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MenuActivity extends Activity {
 
@@ -23,6 +24,11 @@ public class MenuActivity extends Activity {
 	 * boolean to continue playing music
 	 */
 	boolean continueMusic = true;
+	
+	/**
+	 * textView Watch Tutorial
+	 */
+	TextView textViewWatchTutorial;
 	
 	/**
 	 * button to Play
@@ -72,6 +78,18 @@ public class MenuActivity extends Activity {
 		
         
         /* Initialize views */
+        
+        textViewWatchTutorial = (TextView) findViewById(R.id.menu_textViewWatchTutorial);
+        textViewWatchTutorial.setClickable(true);
+        textViewWatchTutorial.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// start VideoActivity and finish MenuActivity
+				Intent intent = new Intent(MenuActivity.this, VideoActivity.class);
+				startActivity(intent);
+				finish();
+			}
+        });
         
 		buttonPlay = (Button) findViewById(R.id.menu_buttonPlay);
 		buttonPlay.setOnClickListener(new OnClickListener() {

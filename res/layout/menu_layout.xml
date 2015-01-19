@@ -14,11 +14,18 @@
 	    android:layout_height="match_parent"
 	    android:gravity="center"
 	    android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/menu_textViewWatchTutorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/menu_textViewWatchTutorialPadding"
+            android:text="@string/menu_textViewWatchTutorial" />
 	
 	    <ImageView
 	        android:id="@+id/menu_imageViewLogo"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+	        android:layout_width="@dimen/menu_imageViewLogoWidth"
+	        android:layout_height="@dimen/menu_imageViewLogoHeight"
 	        android:contentDescription="@string/menu_imageViewLogoDesc"
 	        android:src="@drawable/logo" />
 	
