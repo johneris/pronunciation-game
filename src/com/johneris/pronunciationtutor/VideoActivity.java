@@ -136,17 +136,27 @@ public class VideoActivity extends Activity {
 		lstVideoTutorial = new ArrayList<>();
 		hashVideoTutorial = new HashMap<String, Integer>();
 		
-		lstVideoTutorial.add("Stress and Rhythm");
-		hashVideoTutorial.put("Stress and Rhythm", R.raw.stress_and_rhythm);
+//		lstVideoTutorial.add("Stress and Rhythm");
+//		hashVideoTutorial.put("Stress and Rhythm", R.raw.stress_and_rhythm);
+//		
+//		lstVideoTutorial.add("Introduction to Intonation");
+//		hashVideoTutorial.put("Introduction to Intonation", R.raw.introduction_to_intonation);
+//		
+//		lstVideoTutorial.add("Basic Helping Verbs");
+//		hashVideoTutorial.put("Basic Helping Verbs", R.raw.basic_helping_verbs_in_english);
+//		
+//		lstVideoTutorial.add("Seat, Sit, Set");
+//		hashVideoTutorial.put("Seat, Sit, Set", R.raw.seat_sit_set);
 		
-		lstVideoTutorial.add("Introduction to Intonation");
-		hashVideoTutorial.put("Introduction to Intonation", R.raw.introduction_to_intonation);
+		lstVideoTutorial.add("Homophones Tutorial");
+		hashVideoTutorial.put("Homophones Tutorial", R.raw.homophones_tutorial);
 		
-		lstVideoTutorial.add("Basic Helping Verbs");
-		hashVideoTutorial.put("Basic Helping Verbs", R.raw.basic_helping_verbs_in_english);
+		lstVideoTutorial.add("Homophones Examples");
+		hashVideoTutorial.put("Homophones Examples", R.raw.homophones_examples);
 		
-		lstVideoTutorial.add("Seat, Sit, Set");
-		hashVideoTutorial.put("Seat, Sit, Set", R.raw.seat_sit_set);
+		lstVideoTutorial.add("Homophones Seatwork");
+		hashVideoTutorial.put("Homophones Seatwork", R.raw.homophones_seatwork);
+		
 	}
 
 	@Override

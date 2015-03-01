@@ -10,5 +10,6 @@ public class Keys {
 	public static final String GAME_MODE = "GAME_MODE";
 	public static final String GAME_WORDS = "GAME_WORDS";
 	public static final String GAME_SCORES = "GAME_SCORES";
+	public static final String GRADELEVEL = "GRADELEVEL";
 	
 }

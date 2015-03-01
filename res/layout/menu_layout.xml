@@ -8,12 +8,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/imageBackground_desc" />
-    
-    <LinearLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:gravity="center"
-	    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/menu_textViewWatchTutorial"
@@ -22,32 +22,56 @@
             android:padding="@dimen/menu_textViewWatchTutorialPadding"
             android:text="@string/menu_textViewWatchTutorial"
             android:textColor="#000000" />
-	
-	    <ImageView
-	        android:id="@+id/menu_imageViewLogo"
-	        android:layout_width="@dimen/menu_imageViewLogoWidth"
-	        android:layout_height="@dimen/menu_imageViewLogoHeight"
-	        android:contentDescription="@string/menu_imageViewLogoDesc"
-	        android:src="@drawable/logo" />
-	
-	    <Button
-	        android:id="@+id/menu_buttonPlay"
-	        android:layout_width="@dimen/menu_buttonWidth"
-	        android:layout_height="wrap_content"
-	        android:text="@string/menu_buttonPlay" />
 
-	    <Button
-	        android:id="@+id/menu_buttonScores"
-	        android:layout_width="@dimen/menu_buttonWidth"
-	        android:layout_height="wrap_content"
-	        android:text="@string/menu_buttonScores" />
+        <ImageView
+            android:id="@+id/menu_imageViewLogo"
+            android:layout_width="@dimen/menu_imageViewLogoWidth"
+            android:layout_height="@dimen/menu_imageViewLogoHeight"
+            android:contentDescription="@string/menu_imageViewLogoDesc"
+            android:src="@drawable/logo" />
 
-	    <Button
-	        android:id="@+id/menu_buttonInstructions"
-	        android:layout_width="@dimen/menu_buttonWidth"
-	        android:layout_height="wrap_content"
-	        android:text="@string/menu_buttonInstructions" />
-	
-	</LinearLayout>
-	
+        <Button
+            android:id="@+id/menu_buttonPlay"
+            android:layout_width="@dimen/menu_buttonWidth"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#1CF5FC"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="25"
+            android:text="@string/menu_buttonPlay"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/menu_buttonScores"
+            android:layout_width="@dimen/menu_buttonWidth"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#1CF5FC"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="25"
+            android:text="@string/menu_buttonScores"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/menu_buttonInstructions"
+            android:layout_width="@dimen/menu_buttonWidth"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#1CF5FC"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="25"
+            android:text="@string/menu_buttonInstructions"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
 </FrameLayout>

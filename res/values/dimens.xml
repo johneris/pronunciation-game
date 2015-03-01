@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <!-- global -->
+    <dimen name="global_buttonWidthNormal">100dp</dimen>
+    <dimen name="global_buttonWidthBackToMenu">200dp</dimen>
+    
     <!-- Menu -->
     <dimen name="menu_buttonWidth">150dp</dimen>
     <dimen name="menu_imageViewLogoWidth">270dp</dimen>

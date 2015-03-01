@@ -56,7 +56,8 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/iterationresult_imageViewPronounceDesc"
             android:cropToPadding="false"
-            android:src="@drawable/pronounce" />
+            android:src="@drawable/pronounce" 
+            />
 
     </LinearLayout>
 

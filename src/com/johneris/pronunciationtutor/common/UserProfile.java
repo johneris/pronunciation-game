@@ -12,6 +12,8 @@ public class UserProfile implements Serializable {
 	 */
 	public String userName;
 	
+	public String gradeLevel;
+	
 	/**
 	 * list of results in easy mode
 	 */
@@ -34,6 +36,7 @@ public class UserProfile implements Serializable {
 	 */
 	public UserProfile() {
 		userName = "";
+		gradeLevel = "";
 		lstEasyResult = new ArrayList<>();
 		lstNormalResult = new ArrayList<>();
 		lstHardResult = new ArrayList<>();

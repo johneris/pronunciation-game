@@ -1,10 +1,6 @@
 package com.johneris.pronunciationtutor;
 
-import com.johneris.pronunciationtutor.common.Constants;
-import com.johneris.pronunciationtutor.common.Keys;
-import com.johneris.pronunciationtutor.common.MusicManager;
-import com.johneris.pronunciationtutor.common.StoreUserProfiles;
-import com.johneris.pronunciationtutor.common.UserProfile;
+import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -19,12 +15,22 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.johneris.pronunciationtutor.common.Constants;
+import com.johneris.pronunciationtutor.common.Keys;
+import com.johneris.pronunciationtutor.common.MusicManager;
+import com.johneris.pronunciationtutor.common.StoreUserProfiles;
+import com.johneris.pronunciationtutor.common.UserProfile;
 
 public class ScoresActivity extends Activity {
 
@@ -47,6 +53,8 @@ public class ScoresActivity extends Activity {
 	 * button to go back to Main Menu
 	 */
 	Button buttonBackToMainMenu;
+	
+	Spinner spinnerGradeLevel;
 	
 	
 	
@@ -82,6 +90,30 @@ public class ScoresActivity extends Activity {
         
         /* Initialize views */
         
+        spinnerGradeLevel = (Spinner) findViewById(R.id.gamemode_spinnerGradeLevel);
+		ArrayList<String> lstGradeLevel = new ArrayList<>();
+		lstGradeLevel.add(Constants.GRADELEVEL_3);
+		lstGradeLevel.add(Constants.GRADELEVEL_4);
+		lstGradeLevel.add(Constants.GRADELEVEL_5);
+		ArrayAdapter<String> spinnerGradeLevelArrayAdapter = new ArrayAdapter<String>(
+				this, android.R.layout.simple_spinner_item, lstGradeLevel);
+		spinnerGradeLevelArrayAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinnerGradeLevel.setAdapter(spinnerGradeLevelArrayAdapter);
+		spinnerGradeLevel.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				loadTable(spinnerGradeLevel.getSelectedItem().toString());
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				spinnerGradeLevel.setSelection(0);
+			}
+		});
+        
         tableLayout = (TableLayout) findViewById(R.id.scores_tableLayout);
         
         buttonClear = (Button) findViewById(R.id.scores_buttonClear);
@@ -95,7 +127,7 @@ public class ScoresActivity extends Activity {
 				Constants.lstUserProfile.clear();
 				StoreUserProfiles.saveToFile(getApplicationContext());
 				// reload table
-				loadTable();
+				loadTable(spinnerGradeLevel.getSelectedItem().toString());
 				// enable buttons
 				buttonClear.setEnabled(true);
 				buttonBackToMainMenu.setEnabled(true);
@@ -113,7 +145,7 @@ public class ScoresActivity extends Activity {
 			}
 		});
         
-        loadTable();
+        loadTable(Constants.GRADELEVEL_3);
 	}
 	
 	
@@ -121,7 +153,7 @@ public class ScoresActivity extends Activity {
 	/**
 	 * load table of scores
 	 */
-	private void loadTable() {
+	private void loadTable(String gradeLevel) {
 		
 		// remove all scores in table
 		tableLayout.removeAllViews();
@@ -133,6 +165,10 @@ public class ScoresActivity extends Activity {
 		// fill table with user profiles
 		for(int i = 0; i < Constants.lstUserProfile.size(); i++) {
 			final UserProfile userProfile = Constants.lstUserProfile.get(i);
+			
+			if (!userProfile.gradeLevel.equals(gradeLevel)) {
+				continue;
+			}
 			
 			// layout that will contain user profile
 			LinearLayout linearLayoutItem = new LinearLayout(getApplicationContext());
@@ -209,7 +245,7 @@ public class ScoresActivity extends Activity {
 					// save
 					StoreUserProfiles.saveToFile(getApplicationContext());
 					// reload table
-					loadTable();
+					loadTable(spinnerGradeLevel.getSelectedItem().toString());
 				}
         	});
         	
@@ -220,13 +256,13 @@ public class ScoresActivity extends Activity {
         	linearLayoutItem.addView(buttonHard);
         	
         	if(userProfile.lstEasyResult.isEmpty()) {
-        		buttonEasy.setEnabled(false);
+        		buttonEasy.setVisibility(View.INVISIBLE);
         	}
         	if(userProfile.lstNormalResult.isEmpty()) {
-        		buttonNormal.setEnabled(false);
+        		buttonNormal.setVisibility(View.INVISIBLE);
         	}
         	if(userProfile.lstHardResult.isEmpty()) {
-        		buttonHard.setEnabled(false);
+        		buttonHard.setVisibility(View.INVISIBLE);
         	}
         	linearLayoutItem.addView(buttonDelete);
 			

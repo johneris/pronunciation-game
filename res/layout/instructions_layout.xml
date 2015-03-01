@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
     <ImageView
         android:id="@+id/instructions_imageBackground"
@@ -9,124 +9,143 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/imageBackground_desc" />
 
-	<LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="fill_parent"
-	    android:gravity="center"
-	    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
 
-		<TextView
-		    android:id="@+id/instructions_textViewInstructions"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:paddingBottom="5dp"
-		    android:paddingTop="@dimen/instructions_textViewInstructionsPadding"
-		    android:text="@string/instructions_textViewInstructions"
-		    android:textColor="#000000" />
+        <TextView
+            android:id="@+id/instructions_textViewInstructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="@dimen/instructions_textViewInstructionsPadding"
+            android:text="@string/instructions_textViewInstructions"
+            android:textColor="#000000" />
 
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:gravity="center"
-	        android:paddingBottom="5dp"
-	        android:paddingTop="5dp" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" >
 
-	        <TextView
-	            android:id="@+id/game_textViewTriesLeftLbl"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/game_textViewTriesLeftLbl"
-	            android:textColor="#000000" />
+            <TextView
+                android:id="@+id/game_textViewTriesLeftLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/game_textViewTriesLeftLbl"
+                android:textColor="#000000" />
 
-	        <TextView
-	            android:id="@+id/game_textViewTriesLeftVal"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/game_textViewTriesLeftVal"
-	            android:textColor="#000000" />
+            <TextView
+                android:id="@+id/game_textViewTriesLeftVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/game_textViewTriesLeftVal"
+                android:textColor="#000000" />
+        </LinearLayout>
 
-	    </LinearLayout>
+        <FrameLayout
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/result_background" >
 
-	    <FrameLayout
-	        android:layout_width="200dp"
-	        android:layout_height="200dp"
-	        android:background="@drawable/result_background" >
+            <ImageView
+                android:id="@+id/game_imageView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:contentDescription="@string/game_imageViewDesc"
+                android:padding="@dimen/game_imageViewPadding"
+                android:scaleType="fitXY" />
+        </FrameLayout>
 
-	        <ImageView
-	            android:id="@+id/game_imageView"
-	            android:layout_width="fill_parent"
-	            android:layout_height="fill_parent"
-	            android:contentDescription="@string/game_imageViewDesc"
-	            android:padding="@dimen/game_imageViewPadding"
-	            android:scaleType="fitXY" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
 
-	    </FrameLayout>
+            <TextView
+                android:id="@+id/game_textViewOption1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/game_textViewOption1"
+                android:textColor="#000000" />
 
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:gravity="center" >
+            <TextView
+                android:id="@+id/game_textViewOption2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/game_textViewOption2"
+                android:textColor="#000000" />
+        </LinearLayout>
 
-	        <TextView
-	            android:id="@+id/game_textViewOption1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:padding="5dp"
-	            android:text="@string/game_textViewOption1"
-	            android:textColor="#000000" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/game_linearLayoutHintSkipPadding" >
 
-	        <TextView
-	            android:id="@+id/game_textViewOption2"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:padding="5dp"
-	            android:text="@string/game_textViewOption2"
-	            android:textColor="#000000" />
+            <Button
+                android:id="@+id/game_buttonRecord"
+                android:layout_width="@dimen/global_buttonWidthNormal"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#1CF5FC"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="25"
+                android:text="@string/game_buttonRecord"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
-	    </LinearLayout>
+            <Button
+                android:id="@+id/game_buttonSkip"
+                android:layout_width="@dimen/global_buttonWidthNormal"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#1CF5FC"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="25"
+                android:text="@string/game_buttonSkip"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:gravity="center"
-	        android:padding="@dimen/game_linearLayoutHintSkipPadding" >
+        </LinearLayout>
 
-	        <Button
-	            android:id="@+id/game_buttonRecord"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/game_buttonRecord" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
 
-	        <Button
-	            android:id="@+id/game_buttonSkip"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/game_buttonSkip" />
+            <Button
+                android:id="@+id/instructions_buttonPlayNow"
+                android:layout_width="@dimen/global_buttonWidthNormal"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#1CF5FC"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="25"
+                android:text="@string/instructions_buttonPlayNow"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
-	    </LinearLayout>
+            <TextView
+                android:id="@+id/instructions_textViewHowTo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/instructions_textViewHowTo"
+                android:textColor="#000000" />
+        </LinearLayout>
+    </LinearLayout>
 
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:gravity="center_horizontal"
-	        android:orientation="vertical" >
-
-	        <Button
-	            android:id="@+id/instructions_buttonPlayNow"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/instructions_buttonPlayNow" />
-
-	        <TextView
-	            android:id="@+id/instructions_textViewHowTo"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:padding="10dp"
-	            android:text="@string/instructions_textViewHowTo"
-	            android:textColor="#000000" />
-
-	    </LinearLayout>
-
-	</LinearLayout>
-	
 </FrameLayout>
