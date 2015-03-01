@@ -304,7 +304,7 @@ public class GameActivity extends Activity implements RecognitionListener {
 		} else if (gradeLevel.equals(Constants.GRADELEVEL_4)) {
 			gradeLevelMarker = Constants.GRADELEVEL4_MARKER;
 		} else if (gradeLevel.equals(Constants.GRADELEVEL_5)) {
-			gradeLevelMarker = Constants.GRADELEVEL4_MARKER;
+			gradeLevelMarker = Constants.GRADELEVEL5_MARKER;
 		}
 
 		// get words
