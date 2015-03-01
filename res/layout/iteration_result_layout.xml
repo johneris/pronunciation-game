@@ -52,12 +52,12 @@
 
         <ImageButton
             android:id="@+id/iterationresult_buttonPronounce"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="90dp"
             android:contentDescription="@string/iterationresult_imageViewPronounceDesc"
             android:cropToPadding="false"
-            android:src="@drawable/pronounce" 
-            />
+            android:scaleType="fitXY"
+            android:src="@drawable/pronounce" />
 
     </LinearLayout>
 
